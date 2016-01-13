@@ -1,0 +1,254 @@
+﻿
+Namespace or module: [Script1]
+ - not supported declaration: DoExpr
+  (SequencePointAtBinding
+     \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (2,4--7,13) IsSynthetic=false,
+   Paren
+     (Lambda
+        (false,false,
+         SimplePats
+           ([Typed
+               (Id
+                  (t,null,false,false,false,
+                   \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (2,10--2,11) IsSynthetic=false),
+                LongIdent (LongIdentWithDots ([Task],[])),
+                \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (2,10--2,18) IsSynthetic=false);
+             Typed
+               (Id
+                  (b,null,false,false,false,
+                   \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (2,20--2,21) IsSynthetic=false),
+                LongIdent (LongIdentWithDots ([Task],[])),
+                \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (2,20--2,28) IsSynthetic=false)],
+            \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (2,10--2,28) IsSynthetic=false),
+         Lambda
+           (false,true,
+            SimplePats
+              ([Typed
+                  (Id
+                     (tv1,null,false,false,false,
+                      \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (2,31--2,34) IsSynthetic=false),
+                   LongIdent (LongIdentWithDots ([Truth],[])),
+                   \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (2,31--2,42) IsSynthetic=false);
+                Typed
+                  (Id
+                     (tv2,null,false,false,false,
+                      \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (2,44--2,47) IsSynthetic=false),
+                   LongIdent (LongIdentWithDots ([Truth],[])),
+                   \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (2,44--2,55) IsSynthetic=false)],
+               \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (2,31--2,55) IsSynthetic=false),
+            Match
+              (SequencePointAtBinding
+                 \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (3,16--3,53) IsSynthetic=false,
+               Tuple
+                 ([LongIdent
+                     (false,
+                      LongIdentWithDots
+                        ([t; S; Key; Term],
+                         [\\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (3,23--3,24) IsSynthetic=false;
+                          \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (3,25--3,26) IsSynthetic=false;
+                          \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (3,29--3,30) IsSynthetic=false]),
+                      null,
+                      \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (3,22--3,34) IsSynthetic=false);
+                   LongIdent
+                     (false,
+                      LongIdentWithDots
+                        ([b; S; Key; Term],
+                         [\\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (3,37--3,38) IsSynthetic=false;
+                          \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (3,39--3,40) IsSynthetic=false;
+                          \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (3,43--3,44) IsSynthetic=false]),
+                      null,
+                      \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (3,36--3,48) IsSynthetic=false)],
+                  [\\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (3,34--3,35) IsSynthetic=false],
+                  \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (3,22--3,48) IsSynthetic=false),
+               [Clause
+                  (Tuple
+                     ([LongIdent
+                         (LongIdentWithDots ([Inh],[]),null,null,
+                          Pats
+                            [Paren
+                               (Tuple
+                                  ([LongIdent
+                                      (LongIdentWithDots ([Prod],[]),null,null,
+                                       Pats
+                                         [Paren
+                                            (Named
+                                               (Wild
+                                                  \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,27--4,30) IsSynthetic=false,
+                                                lst,false,null,
+                                                \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,27--4,30) IsSynthetic=false),
+                                             \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,26--4,31) IsSynthetic=false)],
+                                       null,
+                                       \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,22--4,31) IsSynthetic=false);
+                                    Named
+                                      (Wild
+                                         \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,33--4,34) IsSynthetic=false,
+                                       m,false,null,
+                                       \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,33--4,34) IsSynthetic=false)],
+                                   \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,22--4,34) IsSynthetic=false),
+                                \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,21--4,35) IsSynthetic=false)],
+                          null,
+                          \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,18--4,35) IsSynthetic=false);
+                       LongIdent
+                         (LongIdentWithDots ([Inh],[]),null,null,
+                          Pats
+                            [Paren
+                               (Tuple
+                                  ([Named
+                                      (Wild
+                                         \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,41--4,43) IsSynthetic=false,
+                                       a1,false,null,
+                                       \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,41--4,43) IsSynthetic=false);
+                                    Wild
+                                      \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,45--4,46) IsSynthetic=false],
+                                   \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,41--4,46) IsSynthetic=false),
+                                \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,40--4,47) IsSynthetic=false)],
+                          null,
+                          \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,37--4,47) IsSynthetic=false)],
+                      \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,18--4,47) IsSynthetic=false),
+                   Some
+                     (App
+                        (NonAtomic,false,
+                         App
+                           (NonAtomic,true,Ident op_BooleanAnd,
+                            App
+                              (NonAtomic,false,
+                               App
+                                 (NonAtomic,true,Ident op_Inequality,Ident m,
+                                  \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,53--4,57) IsSynthetic=false),
+                               Ident a1,
+                               \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,53--4,60) IsSynthetic=false),
+                            \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,53--4,63) IsSynthetic=false),
+                         App
+                           (NonAtomic,false,
+                            App
+                              (NonAtomic,true,Ident op_PipeRight,Ident lst,
+                               \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,64--4,70) IsSynthetic=false),
+                            App
+                              (NonAtomic,false,
+                               LongIdent
+                                 (false,
+                                  LongIdentWithDots
+                                    ([List; contains],
+                                     [\\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,75--4,76) IsSynthetic=false]),
+                                  null,
+                                  \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,71--4,84) IsSynthetic=false),
+                               Ident a1,
+                               \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,71--4,87) IsSynthetic=false),
+                            \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,64--4,87) IsSynthetic=false),
+                         \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,53--4,87) IsSynthetic=false)),
+                   ArrayOrListOfSeqExpr
+                     (false,
+                      CompExpr
+                        (true,{contents = true;},
+                         Paren
+                           (Tuple
+                              ([App
+                                  (Atomic,false,Ident Inh,
+                                   Paren
+                                     (Tuple
+                                        ([Ident a1;
+                                          App
+                                            (Atomic,false,Ident ExtImg,
+                                             Paren
+                                               (App
+                                                  (NonAtomic,true,
+                                                   Ident op_ColonColon,
+                                                   Tuple
+                                                     ([Ident m;
+                                                       Paren
+                                                         (App
+                                                            (NonAtomic,false,
+                                                             App
+                                                               (NonAtomic,false,
+                                                                Ident sub_,
+                                                                Ident a1,
+                                                                \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,44--5,51) IsSynthetic=false),
+                                                             Ident lst,
+                                                             \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,44--5,55) IsSynthetic=false),
+                                                          \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,43--5,44) IsSynthetic=false,
+                                                          Some
+                                                            \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,55--5,56) IsSynthetic=false,
+                                                          \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,43--5,56) IsSynthetic=false)],
+                                                      [\\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,41--5,43) IsSynthetic=false],
+                                                      \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,40--5,56) IsSynthetic=false),
+                                                   \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,40--5,56) IsSynthetic=false),
+                                                \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,39--5,40) IsSynthetic=false,
+                                                Some
+                                                  \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,56--5,57) IsSynthetic=false,
+                                                \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,39--5,57) IsSynthetic=false),
+                                             \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,33--5,57) IsSynthetic=false)],
+                                         [\\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,31--5,32) IsSynthetic=false],
+                                         \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,29--5,57) IsSynthetic=false),
+                                      \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,28--5,29) IsSynthetic=false,
+                                      Some
+                                        \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,57--5,58) IsSynthetic=false,
+                                      \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,28--5,58) IsSynthetic=false),
+                                   \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,25--5,58) IsSynthetic=false);
+                                App
+                                  (Atomic,false,Ident Some,
+                                   Paren
+                                     (App
+                                        (Atomic,false,Ident identity,
+                                         Paren
+                                           (Tuple
+                                              ([Ident tv1; Ident tv2],
+                                               [\\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,77--5,78) IsSynthetic=false],
+                                               \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,74--5,82) IsSynthetic=false),
+                                            \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,73--5,74) IsSynthetic=false,
+                                            Some
+                                              \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,82--5,83) IsSynthetic=false,
+                                            \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,73--5,83) IsSynthetic=false),
+                                         \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,65--5,83) IsSynthetic=false),
+                                      \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,64--5,65) IsSynthetic=false,
+                                      Some
+                                        \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,83--5,84) IsSynthetic=false,
+                                      \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,64--5,84) IsSynthetic=false),
+                                   \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,60--5,84) IsSynthetic=false);
+                                App
+                                  (Atomic,false,Ident Some,
+                                   Paren
+                                     (App
+                                        (Atomic,false,Ident identity,
+                                         Paren
+                                           (Tuple
+                                              ([Ident tv1; Ident tv2],
+                                               [\\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,103--5,104) IsSynthetic=false],
+                                               \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,100--5,108) IsSynthetic=false),
+                                            \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,99--5,100) IsSynthetic=false,
+                                            Some
+                                              \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,108--5,109) IsSynthetic=false,
+                                            \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,99--5,109) IsSynthetic=false),
+                                         \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,91--5,109) IsSynthetic=false),
+                                      \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,90--5,91) IsSynthetic=false,
+                                      Some
+                                        \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,109--5,110) IsSynthetic=false,
+                                      \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,90--5,110) IsSynthetic=false),
+                                   \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,86--5,110) IsSynthetic=false)],
+                               [\\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,58--5,59) IsSynthetic=false;
+                                \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,84--5,85) IsSynthetic=false],
+                               \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,25--5,110) IsSynthetic=false),
+                            \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,24--5,25) IsSynthetic=false,
+                            Some
+                              \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,110--5,111) IsSynthetic=false,
+                            \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,24--5,111) IsSynthetic=false),
+                         \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,24--5,111) IsSynthetic=false),
+                      \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (5,23--5,112) IsSynthetic=false),
+                   \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (4,18--4,47) IsSynthetic=false,
+                   SequencePointAtTarget);
+                Clause
+                  (Wild
+                     \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (6,18--6,19) IsSynthetic=false,
+                   null,
+                   ArrayOrList
+                     (false,[],
+                      \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (6,23--6,25) IsSynthetic=false),
+                   \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (6,18--6,19) IsSynthetic=false,
+                   SequencePointAtTarget)],false,
+               \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (3,16--6,25) IsSynthetic=false),
+            \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (2,5--6,25) IsSynthetic=false),
+         \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (2,5--6,25) IsSynthetic=false),
+      \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (2,4--2,5) IsSynthetic=false,
+      Some
+        \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (7,12--7,13) IsSynthetic=false,
+      \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (2,4--7,13) IsSynthetic=false),
+   \\diskstation\homes\Tony\Development\ALANN - Working copy - backup\MetaRuleCommentTest\Script1.fsx (2,4--7,13) IsSynthetic=false)

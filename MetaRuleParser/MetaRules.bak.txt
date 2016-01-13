@@ -1,0 +1,1007 @@
+﻿    // Pei Wang's "Non-Axiomatic Logic" specified with a math. notation inspired DSL with given intiutive explainations:
+    
+    //The rules of NAL, can be interpreted by considering the intiution behind the following two relations:
+    // Statement:                 (A --> B):               A can stand for B
+    // Statement about Statement: (A --> B) ==> (X --> Y): If A is true, so is/will be B
+    // --> is a relation in meaning of terms, while ==> is a relation of truth between statements.
+    
+    //// Revision ////////////////////////////////////////////////////////////////////////////////////
+    // When a given belief is challenged by new experience, a new belief2 with same content (and disjoint evidental base),
+    // a new revised task, which sums up the evidence of both belief and belief2 is derived:
+    
+    //   A, A |- A, (Truth:Revision) (Commented out because it is already handled by belief management in java)
+    
+    //Similarity to Inheritance
+    
+        (S --> P), (S <-> P), task("?") |- (S --> P), (Truth:StructuralIntersection, Punctuation:Judgment)
+		/* Q(Inh(s1,p1)), Sim(s2,p2) when s1 = s2 && p1 = p2 && s1 <> p1 -> J(Inh(s1, p1)), (Some(structuralInt(tv1)), None)
+
+    //Inheritance to Similarity
+    
+        (S <-> P), (S --> P), task("?") |- (S <-> P), (Truth:StructuralAbduction, Punctuation:Judgment)
+        /* Q(Sim(s1,p1)), Inh(s2,p2) when s1 = s2 && p1 = p2 && s1 <> p1 -> J(Sim(s1, p1)), (Some(structuralAbd(tv1)), None)
+
+    //Set Definition Similarity to Inheritance
+    
+        ({S} <-> {P}), {S} |- ({S} --> {P}), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+		/* J(Sim(ExtSet([s]), ExtSet([p]))), _ when s <> p -> J(Inh(ExtSet([s]), ExtSet([p]))), (Some(identity(tv1)), Some(identity(dv1)))
+		/* Q(Sim(ExtSet([s]), ExtSet([p]))), _ when s <> p -> Q(Inh(ExtSet([s]), ExtSet([p]))), (None, None)
+
+        ({S} <-> {P}), {P} |- ({S} --> {P}), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+		/* J(Sim(ExtSet([s]), ExtSet([p]))), _ when s <> p -> J(Inh(ExtSet([s]), ExtSet([p]))), (Some(identity(tv1)), Some(identity(dv1)))
+		/* Q(Sim(ExtSet([s]), ExtSet([p]))), _ when s <> p -> Q(Inh(ExtSet([s]), ExtSet([p]))), (None, None)
+
+        ([S] <-> [P]), [S] |- ([S] --> [P]), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+		/* J(Sim(IntSet([s]), IntSet([p]))), _ when s <> p -> J(Inh(IntSet([s]), IntSet([p]))), (Some(identity(tv1)), Some(identity(dv1)))
+		/* Q(Sim(IntSet([s]), IntSet([p]))), _ when s <> p -> Q(Inh(IntSet([s]), IntSet([p]))), (None, None)
+
+        ([S] <-> [P]), [P] |- ([S] --> [P]), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+		/* J(Sim(IntSet([s]), IntSet([p]))), _ when s <> p -> J(Inh(IntSet([s]), IntSet([p]))), (Some(identity(tv1)), Some(identity(dv1)))
+		/* Q(Sim(IntSet([s]), IntSet([p]))), _ when s <> p -> Q(Inh(IntSet([s]), IntSet([p]))), (None, None)
+
+        ({S} <-> {P}), {S} |- ({P} --> {S}), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+		/* J(Sim(ExtSet([s]), ExtSet([p]))), _ when s <> p -> J(Inh(ExtSet([p]), ExtSet([s]))), (Some(identity(tv1)), Some(identity(dv1)))
+		/* Q(Sim(ExtSet([s]), ExtSet([p]))), _ when s <> p -> Q(Inh(ExtSet([p]), ExtSet([s]))), (None, None)
+
+        ({S} <-> {P}), {P} |- ({P} --> {S}), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+		/* J(Sim(ExtSet([s]), ExtSet([p]))), _ when s <> p -> J(Inh(ExtSet([p]), ExtSet([s]))), (Some(identity(tv1)), Some(identity(dv1)))
+		/* Q(Sim(ExtSet([s]), ExtSet([p]))), _ when s <> p -> Q(Inh(ExtSet([p]), ExtSet([s]))), (None, None)
+
+        ([S] <-> [P]), [S] |- ([P] --> [S]), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+		/* J(Sim(IntSet([s]), IntSet([p]))), _ when s <> p -> J(Inh(IntSet([p]), IntSet([s]))), (Some(identity(tv1)), Some(identity(dv1)))
+		/* Q(Sim(IntSet([s]), IntSet([p]))), _ when s <> p -> Q(Inh(IntSet([p]), IntSet([s]))), (None, None)
+
+        ([S] <-> [P]), [P] |- ([P] --> [S]), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+		/* J(Sim(IntSet([s]), IntSet([p]))), _ when s <> p -> J(Inh(IntSet([p]), IntSet([s]))), (Some(identity(tv1)), Some(identity(dv1)))
+		/* Q(Sim(IntSet([s]), IntSet([p]))), _ when s <> p -> Q(Inh(IntSet([p]), IntSet([s]))), (None, None)
+
+    //Set Definition Unwrap
+    
+        ({S} <-> {P}), {S} |- (S <-> P), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+		/* J(Sim(ExtSet([s]), ExtSet([p]))), _ when s <> p -> J(Sim(s, p)), (Some(identity(tv1)), Some(identity(dv1)))
+		/* Q(Sim(ExtSet([s]), ExtSet([p]))), _ when s <> p -> Q(Sim(s, p)), (None, None)
+
+        ({S} <-> {P}), {P} |- (S <-> P), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+		/* J(Sim(ExtSet([s]), ExtSet([p]))), _ when s <> p -> J(Sim(s, p)), (Some(identity(tv1)), Some(identity(dv1)))
+		/* Q(Sim(ExtSet([s]), ExtSet([p]))), _ when s <> p -> Q(Sim(s, p)), (None, None)
+
+        ([S] <-> [P]), [S] |- (S <-> P), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+		/* J(Sim(IntSet([s]), IntSet([p]))), _ when s <> p -> J(Sim(s, p)), (Some(identity(tv1)), Some(identity(dv1)))
+		/* Q(Sim(IntSet([s]), IntSet([p]))), _ when s <> p -> Q(Sim(s, p)), (None, None)
+
+        ([S] <-> [P]), [P] |- (S <-> P), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+        /* J(Sim(IntSet([s]), IntSet([p]))), _ when s <> p -> J(Sim(s, p)), (Some(identity(tv1)), Some(identity(dv1)))
+        /* Q(Sim(IntSet([s]), IntSet([p]))), _ when s <> p -> Q(Sim(s, p)), (None, None)
+
+    //Nothing is more specific than a instance, so its similar
+    
+        (S --> {P}),  S  |- (S <-> {P}), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+		/* J(Inh(s, ExtSet([p]))), _ when s <> p -> J(Sim(s, ExtSet([p]))), (Some(identity(tv1)), Some(identity(dv1)))
+		/* Q(Inh(s, ExtSet([p]))), _ when s <> p -> Q(Sim(s, ExtSet([p]))), (None, None)
+
+        (S --> {P}), {P} |- (S <-> {P}), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+		/* J(Inh(s, ExtSet([p]))), _ when s <> p -> J(Sim(s, ExtSet([p]))), (Some(identity(tv1)), Some(identity(dv1)))
+		/* Q(Inh(s, ExtSet([p]))), _ when s <> p -> Q(Sim(s, ExtSet([p]))), (None, None)
+
+    //nothing is more general than a property, so its similar
+    
+        ([S] --> P), [S] |- ([S] <-> P), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+		/* J(Inh(IntSet([s]), p)), _ when s <> p -> J(Sim(IntSet([s]), p)), (Some(identity(tv1)), Some(identity(dv1)))
+		/* Q(Inh(IntSet([s]), p)), _ when s <> p -> Q(Sim(IntSet([s]), p)), (None, None)
+
+        ([S] --> P),  P  |- ([S] <-> P), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+		/* J(Inh(IntSet([s]), p)), _ when s <> p -> J(Sim(IntSet([s]), p)), (Some(identity(tv1)), Some(identity(dv1)))
+		/* Q(Inh(IntSet([s]), p)), _ when s <> p -> Q(Sim(IntSet([s]), p)), (None, None)
+
+    ////// Truth-value functions: see TruthFunctions.java
+    
+    //// Immediate Inference ////////////////////////////////////////////////////////////////////////////////////
+    //If S can stand for P, P can to a certain low degree also represent the class S
+    //If after S usually P happens, then it might be a good guess that usually before P happens, S happens.
+        (P --> S), (S --> P), task("?") |- (P --> S), (Truth:Conversion, Punctuation:Judgment)
+        (P --> S), (S --> P), task("?") |- (P --> S), (Truth:Conversion, Punctuation:Judgment)		// TODO *** check repeat above
+		/* Q(Inh(p1, s1)), Inh(s2, p2) when s1 <> p1 && s1 = s2 && p1 = p2-> J(Inh(p1, s1)), (Some(cnv(tv2)), None)
+
+        (P ==> S), (S ==> P), task("?") |- (P ==> S), (Truth:Conversion, Punctuation:Judgment)
+        (P ==> S), (S ==> P), task("?") |- (P ==> S), (Truth:Conversion, Punctuation:Judgment)
+		/* Q(Imp(p1, s1)), Imp(s2, p2) when s1 <> p1 && s1 = s2 && p1 = p2-> J(Imp(p1, s1)), (Some(cnv(tv2)), None)
+
+        (P =|> S), (S =|> P), task("?") |- (P =|> S), (Truth:Conversion, Punctuation:Judgment)
+        (P =|> S), (S =|> P), task("?") |- (P =|> S), (Truth:Conversion, Punctuation:Judgment)
+		/* Q(ConImp(p1, s1)), ConImp(s2, p2) when s1 <> p1 && s1 = s2 && p1 = p2-> J(ConImp(p1, s1)), (Some(cnv(tv2)), None)
+
+        (P =\> S), (S =/> P), task("?") |- (P =\> S), (Truth:Conversion, Punctuation:Judgment)
+        (P =\> S), (S =/> P), task("?") |- (P =\> S), (Truth:Conversion, Punctuation:Judgment)
+		/* Q(RetImp(p1, s1)), RetImp(s2, p2) when s1 <> p1 && s1 = s2 && p1 = p2-> J(RetImp(p1, s1)), (Some(cnv(tv2)), None)
+
+        (P =/> S), (S =\> P), task("?") |- (P =/> S), (Truth:Conversion, Punctuation:Judgment)
+        (P =/> S), (S =\> P), task("?") |- (P =/> S), (Truth:Conversion, Punctuation:Judgment)
+		/* Q(PreImp(p1, s1)), PreImp(s2, p2) when s1 <> p1 && s1 = s2 && p1 = p2-> J(PreImp(p1, s1)), (Some(cnv(tv2)), None)
+
+    // "If not smoking lets you be healthy, being not healthy may be the result of smoking"
+    
+        ( --S ==> P),   P |- ( --P ==> S), (Truth:Contraposition, Derive:AllowBackward)
+        ( --S ==> P), --S |- ( --P ==> S), (Truth:Contraposition, Derive:AllowBackward)
+		/* J(Imp(Not(s1), p)), Not(s2) when s1 = s2 -> J(Imp(Not(p), s1)), (Some(cnt(tv1)), None)
+
+        ( --S =|> P),   P |- ( --P =|> S), (Truth:Contraposition, Derive:AllowBackward)
+        ( --S =|> P), --S |- ( --P =|> S), (Truth:Contraposition, Derive:AllowBackward)
+		/* J(ConImp(Not(s1), p)), Not(s2) when s1 = s2 -> J(ConImp(Not(p), s1)), (Some(cnt(tv1)), None)
+
+        ( --S =/> P),   P |- ( --P =\> S), (Truth:Contraposition, Derive:AllowBackward)
+        ( --S =/> P), --S |- ( --P =\> S), (Truth:Contraposition, Derive:AllowBackward)
+		/* J(PreImp(Not(s1), p)), Not(s2) when s1 = s2 -> J(PreImp(Not(p), s1)), (Some(cnt(tv1)), None)
+
+        ( --S =\> P),   P |- ( --P =/> S), (Truth:Contraposition, Derive:AllowBackward)
+        ( --S =\> P), --S |- ( --P =/> S), (Truth:Contraposition, Derive:AllowBackward)
+		/* J(RetImp(Not(s1), p)), Not(s2) when s1 = s2 -> J(RetImp(Not(p), s1)), (Some(cnt(tv1)), None)
+    
+    //A belief b <f,c> is equal to --b <1-f,c>, which is the negation rule:
+    
+        (A --> B), A, task(negative) |- --(A --> B), (Truth:Negation, Desire:Negation, Derive:AllowBackward)
+        (A --> B), B, task(negative) |- --(A --> B), (Truth:Negation, Desire:Negation, Derive:AllowBackward)
+		/* J(Inh(a, b)), _ when task(negative, tv1) -> J(Not(Inh(a, b))), (Some(neg(tv1)), Some(desireNeg(dv1)))
+		///* Q(Inh(a, b)), _ when task(negative, t) -> Q(Not(Inh(a, b))), (None, None)
+
+      --(A --> B), A, task(negative) |-   (A --> B), (Truth:Negation, Desire:Negation, Derive:AllowBackward)
+      --(A --> B), B, task(negative) |-   (A --> B), (Truth:Negation, Desire:Negation, Derive:AllowBackward)
+		/* J(Not(Inh(a, b))), _ when task(negative, tv1) -> J(Inh(a, b)), (Some(neg(tv1)), Some(desireNeg(dv1)))
+		///* Q(Not(Inh(a, b))), _ when task(negative, t) -> Q(Inh(a, b)), (None, None)
+    
+        (A <-> B), A, task(negative) |- --(A <-> B), (Truth:Negation, Desire:Negation, Derive:AllowBackward) // TODO
+        (A <-> B), B, task(negative) |- --(A <-> B), (Truth:Negation, Desire:Negation, Derive:AllowBackward)
+      --(A <-> B), A, task(negative) |-   (A <-> B), (Truth:Negation, Desire:Negation, Derive:AllowBackward)
+      --(A <-> B), B, task(negative) |-   (A <-> B), (Truth:Negation, Desire:Negation, Derive:AllowBackward)
+    
+    //// inheritance-based syllogism ////////////////////////////////////////////////////////////////////////////////////
+    //       (A --> B) ------- (B --> C)
+    //            \               /
+    //             \             /
+    //              \           /
+    //               \         /
+    //                (A --> C)
+    //If A is a special case of B, and B is a special case of C, so is A a special case of C (strong), the other variations are hypotheses (weak)
+    
+        (A --> B), (B --> C), not_equal(A,C) |- (A --> C), (Truth:Deduction, Desire:Strong, Derive:AllowBackward)
+		/* J(Inh(a, b1)), Inh(b2, c) when a <> c && b1 = b2 -> J(Inh(a, c)), (Some(ded(tv1, tv2)), Some(desireStrong(dv1, dv2)))
+		/* Q(Inh(a, b1)), Inh(b2, c) when a <> c && b1 = b2 -> Q(Inh(a, c)), (None, None)
+
+        (A --> B), (A --> C), not_equal(B,C) |- (B --> C), (Truth:Abduction, Desire:Weak, Derive:AllowBackward)
+		/* J(Inh(a1, b)), Inh(a2, c) when b <> c && a1 = a2 -> J(Inh(b, c)), (Some(abd(tv1, tv2)), Some(desireWeak(dv1, dv2)))
+		/* Q(Inh(a1, b)), Inh(a2, c) when b <> c && a1 = a2 -> Q(Inh(b, c)), (None, None)
+
+        (A --> C), (B --> C), not_equal(A,B) |- (A --> B), (Truth:Induction, Desire:Weak, Derive:AllowBackward)
+		/* J(Inh(a, c1)), Inh(b, c2) when a <> c1 && c1 = c2 -> J(Inh(a, b)), (Some(ind(tv1, tv2)), Some(desireStrong(dv1, dv2)))
+		/* Q(Inh(a, c1)), Inh(b, c2) when a <> c1 && c1 = c2 -> Q(Inh(a, b)), (None, None)
+
+        (A --> B), (B --> C), not_equal(C,A) |- (C --> A), (Truth:Exemplification, Desire:Weak, Derive:AllowBackward)
+		/* J(Inh(a, b1)), Inh(b2, c) when a <> c && b1 = b2 -> J(Inh(c, a)), (Some(exe(tv1, tv2)), Some(desireWeak(dv1, dv2)))
+		/* Q(Inh(a, b1)), Inh(b2, c) when a <> c && b1 = b2 -> Q(Inh(c, a)), (None, None)
+
+    //// similarity from inheritance ////////////////////////////////////////////////////////////////////////////////////
+    //If S is a special case of P, and P is a special case of S, then S and P are similar
+    
+        (S --> P), (P --> S) |- (S <-> P), (Truth:Intersection, Desire:Strong, Derive:AllowBackward)
+		/* J(Inh(s1, p1)), Inh(s2, p2) when s1 = s2 && p1 = p2 -> J(Sim(s1, p1)), (Some(int(tv1, tv2)), Some(desireStrong(dv1, dv2)))
+		/* Q(Inh(s1, p1)), Inh(s2, p2) when s1 = s2 && p1 = p2 -> Q(Sim(s1, p1)), (None, None)
+
+    //// inheritance from similarty <- TODO check why this one was missing ////////////////////////////////////////////////////////////////////////////////////
+    
+        (S <-> P), (P --> S) |- (S --> P), (Truth:ReduceConjunction, Desire:Strong, Derive:AllowBackward)
+		/* J(Sim(s1, p1)), Inh(p2, s2) when s1 = s2 && p1 = p2 -> J(Inh(s1, p1)), (Some(redCon(tv1, tv2)), Some(desireStrong(dv1, dv2)))
+		/* Q(Sim(s1, p1)), Inh(p2, s2) when s1 = s2 && p1 = p2 -> Q(Inh(s1, p1)), (None, None)
+
+    //// similarity-based syllogism ////////////////////////////////////////////////////////////////////////////////////
+    //If P and S are a special case of M, then they might be similar (weak),
+    //also if P and S are a general case of M
+    
+        (P --> M), (S --> M), not_equal(S,P) |- (S <-> P), (Truth:Comparison, Desire:Weak, Derive:AllowBackward)
+		/* J(Inh(p, m1)), Inh(s, m2) when s <> p && m1 = m2 -> J(Sim(s, p)), (Some(com(tv1, tv2)), Some(desireWeak(dv1, dv2)))
+		/* Q(Inh(p, m1)), Inh(s, m2) when s <> p && m1 = m2 -> Q(Sim(s, p)), (None, None)
+
+        (M --> P), (M --> S), not_equal(S,P) |- (S <-> P), (Truth:Comparison, Desire:Weak, Derive:AllowBackward)
+		/* J(Inh(m1, p)), Inh(m2, s) when m1 = m2 && s <> p -> J(Sim(s, p)), (Some(com(tv1, tv2)), Some(desireWeak(dv1, dv2)))
+		/* Q(Inh(m1, p)), Inh(m2, s) when m1 = m2 && s <> p -> Q(Sim(s, p)), (None, None)
+
+    //If M is a special case of P and S and M are similar, then S is also a special case of P (strong)
+    
+        (M --> P), (S <-> M), not_equal(S,P) |- (S --> P), (Truth:Analogy, Desire:Strong, Derive:AllowBackward)
+		/* J(Inh(m1, p)), Sim(s, m2) when s <> p && m1 = m2 -> J(Inh(s, p)), (Some(ana(tv1, tv2)), Some(desireStrong(dv1, dv2)))
+		/* Q(Inh(m1, p)), Sim(s, m2) when s <> p && m1 = m2 -> Q(Inh(s, p)), (None, None)
+
+        (P --> M), (S <-> M), not_equal(S,P) |- (P --> S), (Truth:Analogy, Desire:Strong, Derive:AllowBackward)
+		/* J(Inh(p, m1)), Sim(s, m2) when s <> p && m1 = m2 -> J(Inh(p, s)), (Some(ana(tv1, tv2)), Some(desireStrong(dv1, dv2)))
+		/* Q(Inh(p, m1)), Sim(s, m2) when s <> p && m1 = m2 -> Q(Inh(p, s)), (None, None)
+
+        (M <-> P), (S <-> M), not_equal(S,P) |- (S <-> P), (Truth:Resemblance, Desire:Strong, Derive:AllowBackward)
+		/* J(Sim(m1, p)), Inh(s, m2) when s <> p && m1 = m2 -> J(Sim(s, p)), (Some(res(tv1, tv2)), Some(desireStrong(dv1, dv2)))
+		/* Q(Sim(m1, p)), Inh(s, m2) when s <> p && m1 = m2 -> Q(Sim(s, p)), (None, None)
+
+    //// inheritance-based composition ////////////////////////////////////////////////////////////////////////////////////
+    //If P and S are in the intension/extension of M, then union/difference and intersection can be built:
+    
+        (P --> M), (S --> M), not_set(S), not_set(P), not_equal(S,P), no_common_subterm(S,P) |- ((S | P) --> M), (Truth:Intersection),
+                                                                                                ((S & P) --> M), (Truth:Union),
+                                                                                                ((P ~ S) --> M), (Truth:Difference)
+	    /* J(Inh(p, m1)), Inh(s, m2) when s <> p && m1 = m2 && not_set(s) && not_set(p) && no_common_subterm(s, p) -> J(Inh(IntInt(sort [s; p]), m1)), (Some(int(tv1, tv2)), None)    
+		/* J(Inh(p, m1)), Inh(s, m2) when s <> p && m1 = m2 && not_set(s) && not_set(p) && no_common_subterm(s, p) -> J(Inh(ExtInt(sort [s; p]), m1)), (Some(uni(tv1, tv2)), None)
+	    /* J(Inh(p, m1)), Inh(s, m2) when s <> p && m1 = m2 && not_set(s) && not_set(p) && no_common_subterm(s, p) -> J(Inh(IntDif(s, p), m1)), (Some(dif(tv1, tv2)), None)
+
+        (M --> P), (M --> S), not_set(S), not_set(P), not_equal(S,P), no_common_subterm(S,P) |- (M --> (P & S)), (Truth:Intersection),
+                                                                                                (M --> (P | S)), (Truth:Union),
+                                                                                                (M --> (P - S)), (Truth:Difference)
+	    /* J(Inh(m1, p)), Inh(m2, s) when s <> p && m1 = m2 && not_set(s) && not_set(p) && no_common_subterm(s, p) -> J(Inh(m1, ExtInt(sort [p; s]))), (Some(int(tv1, tv2)), None)
+        /* J(Inh(m1, p)), Inh(m2, s) when s <> p && m1 = m2 && not_set(s) && not_set(p) && no_common_subterm(s, p) -> J(Inh(m1, IntInt(sort [p; s]))), (Some(uni(tv1, tv2)), None)
+        /* J(Inh(m1, p)), Inh(m2, s) when s <> p && m1 = m2 && not_set(s) && not_set(p) && no_common_subterm(s, p) -> J(Inh(m1, ExtDif(p, s))), (Some(int(tv1, tv2)), None)
+    
+    //// inheritance-based decomposition ////////////////////////////////////////////////////////////////////////////////////
+    //if (S --> M) is the case, and ((|,S,A_1..n) --> M) is not the case, then ((|,A_1..n) --> M) is not the case, hence Truth:DecomposePositiveNegativeNegative
+
+        (S --> M), ((|,S,A_1..n) --> M) |- ((|,A_1..n) --> M), (Truth:DecomposePositiveNegativeNegative)
+		/* J(Inh(s, m1)), Inh(IntInt(a_1_n), m2) when m1 = m2 && a_1_n |> List.contains s -> J(Inh(reduce(IntInt(listRemove s a_1_n)), m1)), (Some(pnn(tv1, tv2)), None)
+
+        (S --> M), ((&,S,A_1..n) --> M) |- ((&,A_1..n) --> M), (Truth:DecomposeNegativePositivePositive)
+		/* J(Inh(s, m1)), Inh(ExtInt(a_1_n), m2) when m1 = m2 && a_1_n |> List.contains s -> J(Inh(reduce(ExtInt(listRemove s a_1_n)), m1)), (Some(pnn(tv1, tv2)), None)
+
+        (S --> M), ((S ~ P) --> M) |- (P --> M), (Truth:DecomposePositiveNegativePositive)
+		/* J(Inh(s1, m1)), Inh(IntDif(s2, p), m2) when s1 = s2 && m1 = m2 -> J(Inh(p, m1)), (Some(pnn(tv1, tv2)), None)
+
+        (S --> M), ((P ~ S) --> M) |- (P --> M), (Truth:DecomposeNegativeNegativeNegative)
+		/* J(Inh(s1, m1)), Inh(IntDif(p, s2), m2) when s1 = s2 && m1 = m2 -> J(Inh(p, m1)), (Some(nnn(tv1, tv2)), None)
+
+        (M --> S), (M --> (&,S,A_1..n)) |- (M --> (&,A_1..n)), (Truth:DecomposePositiveNegativeNegative)
+		/* J(Inh(m1, s)), Inh(m2, ExtInt(a_1_n)) when m1 = m2 && a_1_n |> List.contains s -> J(Inh(m1, reduce(ExtInt(listRemove s a_1_n)))), (Some(pnn(tv1, tv2)), None)
+
+        (M --> S), (M --> (|,S,A_1..n)) |- (M --> (|,A_1..n)), (Truth:DecomposeNegativePositivePositive)
+		/* J(Inh(m1, s)), Inh(m2, IntInt(a_1_n)) when m1 = m2 && a_1_n |> List.contains s -> J(Inh(m1, reduce(IntInt(listRemove s a_1_n)))), (Some(npp(tv1, tv2)), None)
+
+        (M --> S), (M --> (S - P)) |- (M --> P), (Truth:DecomposePositiveNegativePositive)
+		/* J(Inh(m1, s1)), Inh(m2, ExtDif(s2, p)) when m1 = m2 && s1 = s2 -> J(Inh(m1, p)), (Some(pnp(tv1, tv2)), None)
+
+        (M --> S), (M --> (P - S)) |- (M --> P), (Truth:DecomposeNegativeNegativeNegative)
+		/* J(Inh(m1, s1)), Inh(m2, ExtDif(p, s2)) when m1 = m2 && s1 = s2 -> J(Inh(m1, p)), (Some(nnn(tv1, tv2)), None)
+    
+    //Set comprehension:
+    
+        (C --> A), (C --> B), set_ext(A), union(A,B,R) |- (C --> R), (Truth:Union)
+		/* J(Inh(c1, ExtSet(a))), Inh(c2, ExtSet(b)) when c1 = c2 -> J(Inh(c1, reduce(ExtSet(union a b)))), (Some(uni(tv1, tv2)), None)
+
+        (C --> A), (C --> B), set_int(A), union(A,B,R) |- (C --> R), (Truth:Intersection)
+		/* J(Inh(c1, IntSet(a))), Inh(c2, IntSet(b)) when c1 = c2 -> J(Inh(c1, reduce(IntSet(union a b)))), (Some(int(tv1, tv2)), None)
+
+        (A --> C), (B --> C), set_ext(A), union(A,B,R) |- (R --> C), (Truth:Intersection)
+		/* J(Inh(ExtSet(a), c1)), Inh(ExtSet(b), c2) when c1 = c2 -> J(Inh(reduce(ExtSet(union a b)), c2)), (Some(int(tv1, tv2)), None)
+
+        (A --> C), (B --> C), set_int(A), union(A,B,R) |- (R --> C), (Truth:Union)
+		/* J(Inh(IntSet(a), c1)), Inh(IntSet(b), c2) when c1 = c2 -> J(Inh(reduce(IntSet(union a b)), c2)), (Some(uni(tv1, tv2)), None)
+    
+        (C --> A), (C --> B), set_ext(A), intersection(A,B,R) |- (C --> R), (Truth:Intersection)// TODO check for []
+		/* J(Inh(c1, ExtSet(a))), Inh(c2, ExtSet(b)) when c1 = c2 && isIntersection a b -> J(Inh(c1, reduce(ExtSet(intersect a b)))), (Some(int(tv1, tv2)), None)	 
+
+        (C --> A), (C --> B), set_int(A), intersection(A,B,R) |- (C --> R), (Truth:Union)// TODO check for []
+		/* J(Inh(c1, IntSet(a))), Inh(c2, IntSet(b)) when c1 = c2 && isIntersection a b -> J(Inh(c1, reduce(IntSet(intersect a b)))), (Some(uni(tv1, tv2)), None)	
+
+        (A --> C), (B --> C), set_ext(A), intersection(A,B,R) |- (R --> C), (Truth:Union)// TODO check for []
+		/* J(Inh(ExtSet(a), c1)), Inh(ExtSet(b), c2) when c1 = c2 && isIntersection a b -> J(Inh(reduce(ExtSet(intersect a b)), c1)), (Some(uni(tv1, tv2)), None)	
+
+        (A --> C), (B --> C), set_int(A), intersection(A,B,R) |- (R --> C), (Truth:Intersection)// TODO check for []
+		/* J(Inh(IntSet(a), c1)), Inh(IntSet(b), c2) when c1 = c2 && isIntersection a b -> J(Inh(reduce(IntSet(intersect a b)), c1)), (Some(int(tv1, tv2)), None)	
+
+        (C --> A), (C --> B), difference(A,B,R) |- (C --> R), (Truth:Difference)// TODO check for []
+		/* J(Inh(c1, ExtSet(a))), Inh(c2, ExtSet(b)) when c1 = c2 && isDiff a b -> J(Inh(c1, reduce(ExtSet(diff a b)))), (Some(dif(tv1, tv2)), None)	
+
+        (A --> C), (B --> C), difference(A,B,R) |- (R --> C), (Truth:Difference)// TODO check for []
+	    /* J(Inh(c1, ExtSet(a))), Inh(c2, ExtSet(b)) when c1 = c2 && isDiff a b -> J(Inh(c1, reduce(IntSet(diff a b)))), (Some(dif(tv1, tv2)), None)	
+
+    
+    //Set element takeout:
+    
+        (C --> {A_1..n}), C |- (C --> {A_i}), (Truth:StructuralDeduction)/
+		/* _, Inh(c, ExtSet(a_i::a_1_n)) -> J(Inh(c, ExtSet([a_i]))), (Some(structuralDed(tv2)), None)
+
+        (C --> [A_1..n]), C |- (C --> [A_i]), (Truth:StructuralDeduction)
+		/* _, Inh(c, IntSet(a_i::a_1_n)) -> J(Inh(c, IntSet([a_i]))), (Some(structuralDed(tv2)), None)
+
+        ({A_1..n} --> C), C |- ({A_i} --> C), (Truth:StructuralDeduction)
+		/* _, Inh(ExtSet(a_i::a_1_n), c) -> J(Inh(ExtSet([a_i]), c)), (Some(structuralDed(tv2)), None)
+
+        ([A_1..n] --> C), C |- ([A_i] --> C), (Truth:StructuralDeduction)
+		/* _, Inh(IntSet(a_i::a_1_n), c) -> J(Inh(IntSet([a_i]), c)), (Some(structuralDed(tv2)), None)
+    
+    //NAL3 single premise inference:
+    
+        ((|,A_1..n) --> M), M |- (A_i --> M), (Truth:StructuralDeduction)
+		/* _, Inh(IntInt(a_i::a_1_n), m) -> J(Inh(a_i, m)), (Some(structuralDed(tv2)), None)
+
+        (M --> (&,A_1..n)), M |- (M --> A_i), (Truth:StructuralDeduction)
+		/* _, Inh(m, ExtInt(a_i::a_1_n)) -> J(Inh(m, a_i)), (Some(structuralDed(tv2)), None)
+    
+        ((B ~ G) --> S), S |- (B --> S), (Truth:StructuralDeduction)
+		/* _, Inh(IntDif(b, g), s) -> J(Inh(b, s)), (Some(structuralDed(tv2)), None)
+
+        (R --> (B - S)), R |- (R --> B), (Truth:StructuralDeduction)
+		/* J(Inh(r, ExtDif(b, s))), _ -> J(Inh(r, b)), (Some(structuralDed(tv1)), None)
+    
+    ////// NAL4 - Transformations between products and images: ////////////////////////////////////////////////////////////////////////////////////
+    //Relations and transforming them into different representations so that arguments and the relation itself can become the subject or predicate
+    
+        ((A_1..n) --> M), A_i |- (A_i --> (/,M, A_1..A_i.substitute(_)..A_n )), (Truth:Identity, Desire:Identity)
+		/* _, Inh(Prod([a_i; x]), m) when m <> a_i -> J(Inh(a_i, ExtImg(m::(sub_ a_i [a_i; x])))), (Some(identity(tv2)), Some(identity(dv2)))
+		/* _, Inh(Prod([x; a_i]), m) when m <> a_i -> J(Inh(a_i, ExtImg(m::(sub_ a_i [x; a_i])))), (Some(identity(tv2)), Some(identity(dv2)))
+    
+        (M --> (A_1..n)), A_i |- ((\,M, A_1..A_i.substitute(_)..A_n ) --> A_i)), (Truth:Identity, Desire:Identity) TODO more on this rule
+		/* _, Inh(m, Prod([a_i; x])) when m <> a_i -> J(Inh(IntImg(m::(sub_ a_i [a_i; x])), a_i)), (Some(identity(tv2)), Some(identity(dv2)))
+		/* _, Inh(m, Prod([x; a_i])) when m <> a_i -> J(Inh(IntImg(m::(sub_ a_i [x; a_i])), a_i)), (Some(identity(tv2)), Some(identity(dv2)))
+    
+        (A_i --> (/,M,A_1..A_i.substitute(_)..A_n )), M |- ((A_1..n) --> M), (Truth:Identity, Desire:Identity)
+		/* _, Inh(a_i, ExtImg(m::(Constant "_")::a_1_n)) -> J(Inh(subst(Prod((Constant "_")::a_1_n)) (Constant "_") a_i, m)), (Some(identity(tv2)), Some(identity(dv2)))
+		/* _, Inh(a_i, ExtImg(m::x::(Constant "_")::a_1_n)) -> J(Inh(subst(Prod(x::(Constant "_")::a_1_n)) (Constant "_") a_i, m)), (Some(identity(tv2)), Some(identity(dv2)))
+    
+        ((\,M, A_1..A_i.substitute(_)..A_n ) --> A_i), M |- (M --> (A_1..n)), (Truth:Identity, Desire:Identity)
+		/* _, Inh(IntImg(m::(Constant "_")::a_1_n), a_i) -> J(Inh(m, subst(Prod((Constant "_")::a_1_n)) (Constant "_") a_i)), (Some(identity(tv2)), Some(identity(dv2)))
+		/* _, Inh(IntImg(m::x::(Constant "_")::a_1_n), a_i) -> J(Inh(m, subst(Prod(x::(Constant "_")::a_1_n)) (Constant "_") a_i)), (Some(identity(tv2)), Some(identity(dv2)))
+            
+    //// implication-based syllogism ////////////////////////////////////////////////////////////////////////////////////
+    //       (A ==> B) ------- (B ==> C)
+    //            \               /
+    //             \             /
+    //              \           /
+    //               \         /
+    //                (A ==> C)
+    //If after S M happens, and after M P happens, so P happens after S
+    
+        (M ==> P), (S ==> M), not_equal(S,P) |- (S ==> P), (Truth:Deduction, Order:ForAllSame, Derive:AllowBackward)
+		/* J(Imp(m1, p)), Imp(s, m2) when s <> p && m1 = m2 -> J(Imp(s, p)), (Some(ded(tv1, tv2)), None) 
+		/* Q(Imp(m1, p)), Imp(s, m2) when s <> p && m1 = m2 -> Q(Imp(s, p)), (None, None)
+
+    //"Please note that the temporal order in the conclusion of a weak rule is
+    //not necessarily the same as the order in the premises, given the hypothetical
+    //nature of such a rule."
+    
+        (P ==> M), (S ==> M), not_equal(S,P) |- (S ==> P), (Truth:Induction, Derive:AllowBackward)
+		/* J(Imp(p, m1)), Imp(s, m2) when m1 = m2 && s <> p -> J(Imp(s, p)), (Some(ind(tv1, tv2)), None)
+		/* Q(Imp(p, m1)), Imp(s, m2) when m1 = m2 && s <> p -> Q(Imp(s, p)), (None, None)
+
+        (P =|> M), (S =|> M), not_equal(S,P) |- (S =|> P), (Truth:Induction, Derive:AllowBackward),
+                                                (S =/> P), (Truth:Induction, Derive:AllowBackward),
+                                                (S =\> P), (Truth:Induction, Derive:AllowBackward)
+		/* J(ConImp(p, m1)), ConImp(s, m2) when p <> s && m1 = m2 -> J(ConImp(s, p)), (Some(ind(tv1, tv2)), None)
+   	    /* Q(ConImp(p, m1)), ConImp(s, m2) when p <> s && m1 = m2 -> Q(ConImp(s, p)), (None, None)
+
+		/* J(ConImp(p, m1)), ConImp(s, m2) when p <> s && m1 = m2 -> J(PreImp(s, p)), (Some(ind(tv1, tv2)), None)
+		/* Q(ConImp(p, m1)), ConImp(s, m2) when p <> s && m1 = m2 -> Q(PreImp(s, p)), (None, None)
+
+	    /* J(ConImp(p, m1)), ConImp(s, m2) when p <> s && m1 = m2 -> J(RetImp(s, p)), (Some(ind(tv1, tv2)), None)
+	    /* Q(ConImp(p, m1)), ConImp(s, m2) when p <> s && m1 = m2 -> Q(RetImp(s, p)), (None, None)
+
+        (P =/> M), (S =/> M), not_equal(S,P) |- (S =|> P), (Truth:Induction, Derive:AllowBackward),
+                                                (S =/> P), (Truth:Induction, Derive:AllowBackward),
+                                                (S =\> P), (Truth:Induction, Derive:AllowBackward)
+		/* J(PreImp(p, m1)), PreImp(s, m2) when p <> s && m1 = m2 -> J(ConImp(s, p)), (Some(ind(tv1, tv2)), None)
+     	/* Q(PreImp(p, m1)), PreImp(s, m2) when p <> s && m1 = m2 -> Q(ConImp(s, p)), (None, None)
+
+		/* J(PreImp(p, m1)), PreImp(s, m2) when p <> s && m1 = m2 -> J(PreImp(s, p)), (Some(ind(tv1, tv2)), None)
+		/* Q(PreImp(p, m1)), PreImp(s, m2) when p <> s && m1 = m2 -> Q(PreImp(s, p)), (None, None)
+
+	    /* J(PreImp(p, m1)), PreImp(s, m2) when p <> s && m1 = m2 -> J(RetImp(s, p)), (Some(ind(tv1, tv2)), None)
+	    /* Q(PreImp(p, m1)), PreImp(s, m2) when p <> s && m1 = m2 -> Q(RetImp(s, p)), (None, None)
+
+        (P =\> M), (S =\> M), not_equal(S,P) |- (S =|> P), (Truth:Induction, Derive:AllowBackward),
+                                                (S =/> P), (Truth:Induction, Derive:AllowBackward),
+                                                (S =\> P), (Truth:Induction, Derive:AllowBackward)
+		/* J(RetImp(p, m1)), RetImp(s, m2) when p <> s && m1 = m2 -> J(ConImp(s, p)), (Some(ind(tv1, tv2)), None)
+		/* Q(RetImp(p, m1)), RetImp(s, m2) when p <> s && m1 = m2 -> Q(ConImp(s, p)), (None, None)
+
+		/* J(RetImp(p, m1)), RetImp(s, m2) when p <> s && m1 = m2 -> J(PreImp(s, p)), (Some(ind(tv1, tv2)), None)
+		/* Q(RetImp(p, m1)), RetImp(s, m2) when p <> s && m1 = m2 -> Q(PreImp(s, p)), (None, None)
+
+	    /* J(RetImp(p, m1)), RetImp(s, m2) when p <> s && m1 = m2 -> J(RetImp(s, p)), (Some(ind(tv1, tv2)), None)
+	    /* Q(RetImp(p, m1)), RetImp(s, m2) when p <> s && m1 = m2 -> Q(RetImp(s, p)), (None, None)
+
+        (M ==> P), (M ==> S), not_equal(S,P) |- (S ==> P), (Truth:Abduction, Derive:AllowBackward)
+		/* J(Imp(m1, p)), Imp(m2, s) when p <> s && m1 = m2 -> J(Imp(s, p)), (Some(abd(tv1, tv2)), None)
+		/* Q(Imp(m1, p)), Imp(m2, s) when p <> s && m1 = m2 -> Q(Imp(s, p)), (None, None)
+
+        (M =/> P), (M =/> S), not_equal(S,P) |- (S =|> P), (Truth:Abduction, Derive:AllowBackward),
+                                                (S =/> P), (Truth:Abduction, Derive:AllowBackward),
+                                                (S =\> P), (Truth:Abduction, Derive:AllowBackward)
+		/* J(PreImp(m1,p)), PreImp(m2, s) when p <> s && m1 = m2 -> J(ConImp(s, p)), (Some(abd(tv1, tv2)), None)
+		/* Q(PreImp(m1,p)), PreImp(m2, s) when p <> s && m1 = m2 -> Q(ConImp(s, p)), (None, None)
+
+		/* J(PreImp(m1,p)), PreImp(m2, s) when p <> s && m1 = m2 -> J(PreImp(s, p)), (Some(abd(tv1, tv2)), None)
+		/* Q(PreImp(m1,p)), PreImp(m2, s) when p <> s && m1 = m2 -> Q(PreImp(s, p)), (None, None)
+
+	    /* J(PreImp(m1,p)), PreImp(m2, s) when p <> s && m1 = m2 -> J(RetImp(s, p)), (Some(abd(tv1, tv2)), None)
+	    /* Q(PreImp(m1,p)), PreImp(m2, s) when p <> s && m1 = m2 -> Q(RetImp(s, p)), (None, None)
+
+        (M =|> P), (M =|> S), not_equal(S,P) |- (S =|> P), (Truth:Abduction, Derive:AllowBackward),
+                                                (S =/> P), (Truth:Abduction, Derive:AllowBackward),
+                                                (S =\> P), (Truth:Abduction, Derive:AllowBackward)
+		/* J(ConImp(m1,p)), ConImp(m2, s) when p <> s && m1 = m2 -> J(ConImp(s, p)), (Some(abd(tv1, tv2)), None)
+		/* Q(ConImp(m1,p)), ConImp(m2, s) when p <> s && m1 = m2 -> Q(ConImp(s, p)), (None, None)
+
+		/* J(ConImp(m1,p)), ConImp(m2, s) when p <> s && m1 = m2 -> J(PreImp(s, p)), (Some(abd(tv1, tv2)), None)
+		/* Q(ConImp(m1,p)), ConImp(m2, s) when p <> s && m1 = m2 -> Q(PreImp(s, p)), (None, None)
+
+	    /* J(ConImp(m1,p)), ConImp(m2, s) when p <> s && m1 = m2 -> J(RetImp(s, p)), (Some(abd(tv1, tv2)), None)
+	    /* Q(ConImp(m1,p)), ConImp(m2, s) when p <> s && m1 = m2 -> Q(RetImp(s, p)), (None, None)
+
+        (M =\> P), (M =\> S), not_equal(S,P) |- (S =|> P), (Truth:Abduction, Derive:AllowBackward),
+                                                (S =/> P), (Truth:Abduction, Derive:AllowBackward),
+                                                (S =\> P), (Truth:Abduction, Derive:AllowBackward)
+		/* J(RetImp(m1,p)), RetImp(m2, s) when p <> s && m1 = m2 -> J(ConImp(s, p)), (Some(abd(tv1, tv2)), None)
+		/* Q(RetImp(m1,p)), RetImp(m2, s) when p <> s && m1 = m2 -> Q(ConImp(s, p)), (None, None)
+
+		/* J(RetImp(m1,p)), RetImp(m2, s) when p <> s && m1 = m2 -> J(PreImp(s, p)), (Some(abd(tv1, tv2)), None)
+		/* Q(RetImp(m1,p)), RetImp(m2, s) when p <> s && m1 = m2 -> Q(PreImp(s, p)), (None, None)
+
+	    /* J(RetImp(m1,p)), RetImp(m2, s) when p <> s && m1 = m2 -> J(RetImp(s, p)), (Some(abd(tv1, tv2)), None)
+	    /* Q(RetImp(m1,p)), RetImp(m2, s) when p <> s && m1 = m2 -> Q(RetImp(s, p)), (None, None)
+
+        (P ==> M), (M ==> S), not_equal(S,P) |- (S ==> P), (Truth:Exemplification, Derive:AllowBackward)
+	    /* J(Imp(p, m1)), Imp(m2, s) when p <> s && m1 = m2 -> J(Imp(s, p)), (Some(exe(tv1, tv2)), None)
+	    /* Q(Imp(p, m1)), Imp(m2, s) when p <> s && m1 = m2 -> Q(Imp(s, p)), (None, None)
+
+        (P =/> M), (M =/> S), not_equal(S,P) |- (S =\> P), (Truth:Exemplification, Derive:AllowBackward)
+	    /* J(PreImp(p, m1)), PreImp(m2, s) when p <> s && m1 = m2 -> J(RetImp(s, p)), (Some(exe(tv1, tv2)), None)
+	    /* Q(PreImp(p, m1)), PreImp(m2, s) when p <> s && m1 = m2 -> Q(RetImp(s, p)), (None, None)
+
+        (P =\> M), (M =\> S), not_equal(S,P) |- (S =/> P), (Truth:Exemplification, Derive:AllowBackward)
+	    /* J(RetImp(p, m1)), RetImp(m2, s) when p <> s && m1 = m2 -> J(PreImp(s, p)), (Some(exe(tv1, tv2)), None)
+	    /* Q(RetImp(p, m1)), RetImp(m2, s) when p <> s && m1 = m2 -> Q(PreImp(s, p)), (None, None)
+
+        (P =|> M), (M =|> S), not_equal(S,P) |- (S =|> P), (Truth:Exemplification, Derive:AllowBackward)
+	    /* J(ConImp(p, m1)), ConImp(m2, s) when p <> s && m1 = m2 -> J(ConImp(s, p)), (Some(exe(tv1, tv2)), None)
+	    /* Q(ConImp(p, m1)), ConImp(m2, s) when p <> s && m1 = m2 -> Q(ConImp(s, p)), (None, None)
+
+    //// implication to equivalence ////////////////////////////////////////////////////////////////////////////////////
+    //If when S happens, P happens, and before P happens, S has happened, then they are truth-related equivalent
+    
+        (S ==> P), (P ==> S), not_equal(S,P) |- (S <=> P), (Truth:Intersection, Derive:AllowBackward)
+		/* J(Imp(s1, p1)), Imp(p2, s2) when s1 = s2 && p1 = p2 && s1 <> p1 -> J(Equ(s1, p1)), (Some(int(tv1, tv2)), None)
+		/* Q(Imp(s1, p1)), Imp(p2, s2) when s1 = s2 && p1 = p2 && s1 <> p1 -> Q(Equ(s1, p1)), (None, None)
+
+        (S =|> P), (P =|> S), not_equal(S,P) |- (S <|> P), (Truth:Intersection, Derive:AllowBackward)
+		/* J(ConImp(s1, p1)), ConImp(p2, s2) when s1 = s2 && p1 = p2 && s1 <> p1 -> J(ConEqu(s1, p1)), (Some(int(tv1, tv2)), None)
+		/* Q(ConImp(s1, p1)), ConImp(p2, s2) when s1 = s2 && p1 = p2 && s1 <> p1 -> Q(ConEqu(s1, p1)), (None, None)
+
+        (S =/> P), (P =\> S), not_equal(S,P) |- (S </> P), (Truth:Intersection, Derive:AllowBackward)
+		/* J(PreImp(s1, p1)), RetImp(p2, s2) when s1 = s2 && p1 = p2 && s1 <> p1 -> J(PreEqu(s1, p1)), (Some(int(tv1, tv2)), None)
+		/* Q(PreImp(s1, p1)), RetImp(p2, s2) when s1 = s2 && p1 = p2 && s1 <> p1 -> Q(PreEqu(s1, p1)), (None, None)
+
+        (S =\> P), (P =/> S), not_equal(S,P) |- (P </> S), (Truth:Intersection, Derive:AllowBackward)
+		/* J(RetImp(s1, p1)), PreImp(p2, s2) when s1 = s2 && p1 = p2 && s1 <> p1 -> J(PreEqu(p1, s1)), (Some(int(tv1, tv2)), None)
+		/* Q(RetImp(s1, p1)), PreImp(p2, s2) when s1 = s2 && p1 = p2 && s1 <> p1 -> Q(PreEqu(p1, s1)), (None, None)
+    
+    //// equivalence-based syllogism ////////////////////////////////////////////////////////////////////////////////////
+    //Same as for inheritance again
+    
+        (P ==> M), (S ==> M), not_equal(S,P) |- (S <=> P), (Truth:Comparison, Derive:AllowBackward)
+		/* J(Imp(p, m1)), Imp(s, m2) when m1 = m2 && s <> p -> J(Equ(s, p)), (Some(com(tv1, tv2)), None)
+		/* Q(Imp(p, m1)), Imp(s, m2) when m1 = m2 && s <> p -> Q(Equ(s, p)), (None, None)
+
+        (P =/> M), (S =/> M), not_equal(S,P) |- (S <|> P), (Truth:Comparison, Derive:AllowBackward),
+                                                (S </> P), (Truth:Comparison, Derive:AllowBackward),
+                                                (P </> S), (Truth:Comparison, Derive:AllowBackward)
+
+		/* J(PreImp(p, m1)), PreImp(s, m2) when p <> s && m1 = m2 -> J(ConEqu(s, p)), (Some(com(tv1, tv2)), None)
+		/* Q(PreImp(p, m1)), PreImp(s, m2) when p <> s && m1 = m2 -> Q(ConEqu(s, p)), (None, None)
+
+		/* J(PreImp(p, m1)), PreImp(s, m2) when p <> s && m1 = m2 -> J(PreEqu(s, p)), (Some(com(tv1, tv2)), None)
+		/* Q(PreImp(p, m1)), PreImp(s, m2) when p <> s && m1 = m2 -> Q(PreEqu(s, p)), (None, None)
+
+	    /* J(PreImp(p, m1)), PreImp(s, m2) when p <> s && m1 = m2 -> J(PreEqu(p, s)), (Some(com(tv1, tv2)), None)
+	    /* Q(PreImp(p, m1)), PreImp(s, m2) when p <> s && m1 = m2 -> Q(PreEqu(p, s)), (None, None)
+
+        (P =|> M), (S =|> M), not_equal(S,P) |- (S <|> P), (Truth:Comparison, Derive:AllowBackward)
+		/* J(ConImp(p, m1)), ConImp(s, m2) when m1 = m2 && s <> p -> J(ConEqu(s, p)), (Some(com(tv1, tv2)), None)
+		/* Q(ConImp(p, m1)), ConImp(s, m2) when m1 = m2 && s <> p -> Q(ConEqu(s, p)), (None, None)
+
+        (P =\> M), (S =\> M), not_equal(S,P) |- (S <|> P), (Truth:Comparison, Derive:AllowBackward),
+                                                (S </> P), (Truth:Comparison, Derive:AllowBackward),
+                                                (P </> S), (Truth:Comparison, Derive:AllowBackward)
+		/* J(RetImp(p, m1)), RetImp(s, m2) when p <> s && m1 = m2 -> J(ConImp(s, p)), (Some(ind(tv1, tv2)), None)
+		/* Q(RetImp(p, m1)), RetImp(s, m2) when p <> s && m1 = m2 -> Q(ConImp(s, p)), (None, None)
+
+		/* J(RetImp(p, m1)), RetImp(s, m2) when p <> s && m1 = m2 -> J(PreEqu(s, p)), (Some(ind(tv1, tv2)), None)
+		/* Q(RetImp(p, m1)), RetImp(s, m2) when p <> s && m1 = m2 -> Q(PreEqu(s, p)), (None, None)
+
+	    /* J(RetImp(p, m1)), RetImp(s, m2) when p <> s && m1 = m2 -> J(RetImp(s, p)), (Some(ind(tv1, tv2)), None)
+	    /* Q(RetImp(p, m1)), RetImp(s, m2) when p <> s && m1 = m2 -> Q(RetImp(s, p)), (None, None)
+    
+        (M ==> P), (M ==> S), not_equal(S,P) |- (S <=> P), (Truth:Comparison, Derive:AllowBackward)
+		/* J(Imp(m1, p)), Imp(m2, s) when p <> s && m1 = m2 -> J(Equ(s, p)), (Some(com(tv1, tv2)), None)
+		/* Q(Imp(m1, p)), Imp(m2, s) when p <> s && m1 = m2 -> Q(Equ(s, p)), (None, None)
+
+        (M =/> P), (M =/> S), not_equal(S,P) |- (S <|> P), (Truth:Comparison, Derive:AllowBackward),
+                                                (S </> P), (Truth:Comparison, Derive:AllowBackward),
+                                                (P </> S), (Truth:Comparison, Derive:AllowBackward)
+		/* J(PreImp(m1,p)), PreImp(m2, s) when p <> s && m1 = m2 -> J(ConEqu(s, p)), (Some(com(tv1, tv2)), None)
+		/* Q(PreImp(m1,p)), PreImp(m2, s) when p <> s && m1 = m2 -> Q(ConEqu(s, p)), (None, None)
+
+		/* J(PreImp(m1,p)), PreImp(m2, s) when p <> s && m1 = m2 -> J(PreEqu(s, p)), (Some(com(tv1, tv2)), None)
+		/* Q(PreImp(m1,p)), PreImp(m2, s) when p <> s && m1 = m2 -> Q(PreEqu(s, p)), (None, None)
+
+	    /* J(PreImp(m1,p)), PreImp(m2, s) when p <> s && m1 = m2 -> J(PreEqu(p, s)), (Some(com(tv1, tv2)), None)
+	    /* Q(PreImp(m1,p)), PreImp(m2, s) when p <> s && m1 = m2 -> Q(PreEqu(p, s)), (None, None)
+
+        (M =|> P), (M =|> S), not_equal(S,P) |- (S <|> P), (Truth:Comparison, Derive:AllowBackward)
+	    /* J(ConImp(m1,p)), ConImp(m2, s) when p <> s && m1 = m2 -> J(ConEqu(s, p)), (Some(com(tv1, tv2)), None)
+	    /* Q(ConImp(m1,p)), ConImp(m2, s) when p <> s && m1 = m2 -> Q(ConEqu(s, p)), (None, None)
+
+    //Same as for inheritance again
+    
+        (M ==> P), (S <=> M), not_equal(S,P) |- (S ==> P), (Truth:Analogy, Derive:AllowBackward)
+		/* J(Imp(m1, p)), Equ(s, m2) when m1 = m2 && s <> p -> J(Imp(s, p)), (Some(ana(tv1, tv2)), None)
+		/* Q(Imp(m1, p)), Equ(s, m2) when m1 = m2 && s <> p -> Q(Imp(s, p)), (None, None)
+
+        (M =/> P), (S </> M), not_equal(S,P) |- (S =/> P), (Truth:Analogy, Derive:AllowBackward)
+		/* J(PreImp(m1, p)), PreEqu(s, m2) when m1 = m2 && s <> p -> J(PreImp(s, p)), (Some(ana(tv1, tv2)), None)
+		/* Q(PreImp(m1, p)), PreEqu(s, m2) when m1 = m2 && s <> p -> Q(PreImp(s, p)), (None, None)
+
+        (M =/> P), (S <|> M), not_equal(S,P) |- (S =/> P), (Truth:Analogy, Derive:AllowBackward)
+		/* J(PreImp(m1, p)), ConEqu(s, m2) when m1 = m2 && s <> p -> J(PreImp(s, p)), (Some(ana(tv1, tv2)), None)
+		/* Q(PreImp(m1, p)), ConEqu(s, m2) when m1 = m2 && s <> p -> Q(PreImp(s, p)), (None, None)
+
+        (M =|> P), (S <|> M), not_equal(S,P) |- (S =|> P), (Truth:Analogy, Derive:AllowBackward)
+		/* J(ConImp(m1, p)), ConEqu(s, m2) when m1 = m2 && s <> p -> J(ConImp(s, p)), (Some(ana(tv1, tv2)), None)
+		/* Q(ConImp(m1, p)), ConEqu(s, m2) when m1 = m2 && s <> p -> Q(ConImp(s, p)), (None, None)
+
+        (M =\> P), (M </> S), not_equal(S,P) |- (S =\> P), (Truth:Analogy, Derive:AllowBackward)
+		/* J(RetImp(m1, p)), PreEqu(m2, s) when m1 = m2 && s <> p -> J(RetImp(s, p)), (Some(ana(tv1, tv2)), None)
+		/* Q(RetImp(m1, p)), PreEqu(m2, s) when m1 = m2 && s <> p -> Q(RetImp(s, p)), (None, None)
+
+        (M =\> P), (S <|> M), not_equal(S,P) |- (S =\> P), (Truth:Analogy, Derive:AllowBackward)
+		/* J(RetImp(m1, p)), ConEqu(s, m2) when m1 = m2 && s <> p -> J(RetImp(s, p)), (Some(ana(tv1, tv2)), None)
+		/* Q(RetImp(m1, p)), ConEqu(s, m2) when m1 = m2 && s <> p -> Q(RetImp(s, p)), (None, None)
+
+        (P ==> M), (S <=> M), not_equal(S,P) |- (P ==> S), (Truth:Analogy, Derive:AllowBackward)
+		/* J(Imp(p, m1)), Equ(s, m2) when m1 = m2 && s <> p -> J(Imp(p, s)), (Some(ana(tv1, tv2)), None)
+		/* Q(Imp(p, m1)), Equ(s, m2) when m1 = m2 && s <> p -> Q(Imp(p, s)), (None, None)
+
+        (P =/> M), (S <|> M), not_equal(S,P) |- (P =/> S), (Truth:Analogy, Derive:AllowBackward)
+		/* J(PreImp(p, m1)), ConEqu(s, m2) when m1 = m2 && s <> p -> J(PreImp(p, s)), (Some(ana(tv1, tv2)), None)
+		/* Q(PreImp(p, m1)), ConEqu(s, m2) when m1 = m2 && s <> p -> Q(PreImp(p, s)), (None, None)
+
+        (P =|> M), (S <|> M), not_equal(S,P) |- (P =|> S), (Truth:Analogy, Derive:AllowBackward)
+		/* J(ConImp(p, m1)), ConEqu(s, m2) when m1 = m2 && s <> p -> J(ConImp(p, s)), (Some(ana(tv1, tv2)), None)
+		/* Q(ConImp(p, m1)), ConEqu(s, m2) when m1 = m2 && s <> p -> Q(ConImp(p, s)), (None, None)
+
+        (P =\> M), (S </> M), not_equal(S,P) |- (P =\> S), (Truth:Analogy, Derive:AllowBackward)
+		/* J(RetImp(p, m1)), PreEqu(s, m2) when m1 = m2 && s <> p -> Q(RetImp(p, s)), (None, None)
+
+        (P =\> M), (S <|> M), not_equal(S,P) |- (P =\> S), (Truth:Analogy, Derive:AllowBackward)
+	    /* J(RetImp(p, m1)), PreEqu(s, m2) when m1 = m2 && s <> p -> J(RetImp(p, s)), (Some(ana(tv1, tv2)), None)
+	    /* Q(RetImp(p, m1)), PreEqu(s, m2) when m1 = m2 && s <> p -> Q(RetImp(p, s)), (None, None)
+
+        (M <=> P), (S <=> M), not_equal(S,P) |- (S <=> P), (Truth:Resemblance, Order:ForAllSame, Derive:AllowBackward)
+		/* J(Equ(m1, p)), Equ(s, m2) when m1 = m2 && s <> p -> J(Equ(s, p)), (Some(res(tv1, tv2)), None)
+		/* Q(Equ(m1, p)), Equ(s, m2) when m1 = m2 && s <> p -> Q(Equ(s, p)), (None, None)
+
+        (M </> P), (S <|> M), not_equal(S,P) |- (S </> P), (Truth:Resemblance, Derive:AllowBackward)
+		/* J(PreEqu(m1, p)), ConEqu(s, m2) when m1 = m2 && s <> p -> J(PreEqu(s, p)), (Some(res(tv1, tv2)), None)
+		/* Q(PreEqu(m1, p)), ConEqu(s, m2) when m1 = m2 && s <> p -> Q(PreEqu(s, p)), (None, None)
+
+        (M <|> P), (S </> M), not_equal(S,P) |- (S </> P), (Truth:Resemblance, Derive:AllowBackward)
+		/* J(ConEqu(m1, p)), PreEqu(s, m2) when m1 = m2 && s <> p -> J(PreEqu(s, p)), (Some(res(tv1, tv2)), None)
+		/* Q(ConEqu(m1, p)), PreEqu(s, m2) when m1 = m2 && s <> p -> Q(PreEqu(s, p)), (None, None)
+
+    //// implication-based composition ////////////////////////////////////////////////////////////////////////////////////
+    //Same as for inheritance again
+    
+        (P ==> M), (S ==> M), not_equal(S,P) |- ((P || S) ==> M), (Truth:Intersection),
+                                                ((P && S) ==> M), (Truth:Union)
+	    /* J(Imp(p, m1)), Imp(s, m2) when m1 = m2 && s <> p -> J(Imp(reduce(Or(sort [p; s])), m1)), (Some(int(tv1, tv2)), None)
+	    /* J(Imp(p, m1)), Imp(s, m2) when m1 = m2 && s <> p -> J(Imp(reduce(And(sort [p; s])), m1)), (Some(uni(tv1, tv2)), None)
+
+        (P =|> M), (S =|> M), not_equal(S,P) |- ((P || S) =|> M), (Truth:Intersection),
+                                                ((P &| S) =|> M), (Truth:Union)
+	    /* J(ConImp(p, m1)), ConImp(s, m2) when m1 = m2 && s <> p -> J(ConImp(reduce(Or(sort [p; s])), m1)), (Some(int(tv1, tv2)), None)
+	    /* J(ConImp(p, m1)), ConImp(s, m2) when m1 = m2 && s <> p -> J(ConImp(reduce(And(sort [p; s])), m1)), (Some(uni(tv1, tv2)), None)
+
+        (P =/> M), (S =/> M), not_equal(S,P) |- ((P || S) =/> M), (Truth:Intersection),
+                                                ((P &| S) =/> M), (Truth:Union)
+	    /* J(PreImp(p, m1)), PreImp(s, m2) when m1 = m2 && s <> p -> J(PreImp(reduce(Or(sort [p; s])), m1)), (Some(int(tv1, tv2)), None)
+	    /* J(PreImp(p, m1)), PreImp(s, m2) when m1 = m2 && s <> p -> J(PreImp(reduce(And(sort [p; s])), m1)), (Some(uni(tv1, tv2)), None)
+
+        (P =\> M), (S =\> M), not_equal(S,P) |- ((P || S) =\> M), (Truth:Intersection),
+                                                ((P &| S) =\> M), (Truth:Union)
+	    /* J(RetImp(p, m1)), RetImp(s, m2) when m1 = m2 && s <> p -> J(RetImp(reduce(Or(sort [p; s])), m1)), (Some(int(tv1, tv2)), None)
+	    /* J(RetImp(p, m1)), RetImp(s, m2) when m1 = m2 && s <> p -> J(RetImp(reduce(And(sort [p; s])), m1)), (Some(uni(tv1, tv2)), None)
+
+        (M ==> P), (M ==> S), not_equal(S,P) |- (M ==> (P && S)), (Truth:Intersection),
+                                                (M ==> (P || S)), (Truth:Union)
+	    /* J(Imp(m1, p)), Imp(m2, s) when m1 = m2 && s <> p -> J(Imp(m1, reduce(And(sort [p; s])))), (Some(int(tv1, tv2)), None)
+	    /* J(Imp(m1, p)), Imp(m2, s) when m1 = m2 && s <> p -> J(Imp(m1, reduce(Or(sort [p; s])))), (Some(uni(tv1, tv2)), None)
+
+        (M =/> P), (M =/> S), not_equal(S,P) |- (M =/> (P &| S)), (Truth:Intersection),
+                                                (M =/> (P || S)), (Truth:Union)
+	    /* J(PreImp(m1, p)), PreImp(m2, s) when m1 = m2 && s <> p -> J(PreImp(m1, reduce(And(sort [p; s])))), (Some(int(tv1, tv2)), None)
+	    /* J(PreImp(m1, p)), PreImp(m2, s) when m1 = m2 && s <> p -> J(PreImp(m1, reduce(Or(sort [p; s])))), (Some(uni(tv1, tv2)), None)
+
+        (M =|> P), (M =|> S), not_equal(S,P) |- (M =|> (P &| S)), (Truth:Intersection),
+                                                (M =|> (P || S)), (Truth:Union)
+	    /* J(ConImp(m1, p)), ConImp(m2, s) when m1 = m2 && s <> p -> J(ConImp(m1, reduce(And(sort [p; s])))), (Some(int(tv1, tv2)), None)
+	    /* J(ConImp(m1, p)), ConImp(m2, s) when m1 = m2 && s <> p -> J(ConImp(m1, reduce(Or(sort [p; s])))), (Some(uni(tv1, tv2)), None)
+
+        (M =\> P), (M =\> S), not_equal(S,P) |- (M =\> (P &| S)), (Truth:Intersection),
+                                                (M =\> (P || S)), (Truth:Union)
+	    /* J(RetImp(m1, p)), RetImp(m2, s) when m1 = m2 && s <> p -> J(RetImp(m1, reduce(And(sort [p; s])))), (Some(int(tv1, tv2)), None)
+	    /* J(RetImp(m1, p)), RetImp(m2, s) when m1 = m2 && s <> p -> J(RetImp(m1, reduce(Or(sort [p; s])))), (Some(uni(tv1, tv2)), None)
+    
+        (D =/> R), (D =\> K), not_equal(R,K) |- (K =/> R), (Truth:Abduction),
+                                                (R =\> K), (Truth:Induction),
+                                                (K </> R), (Truth:Comparison)
+	    /* J(PreImp(d1, r)), RetImp(d2, k) when d1 = d2 && r <> k -> J(PreImp(k, r)), (Some(abd(tv1, tv2)), None)
+	    /* J(PreImp(d1, r)), RetImp(d2, k) when d1 = d2 && r <> k -> J(RetImp(r, k)), (Some(ind(tv1, tv2)), None)
+	    /* J(PreImp(d1, r)), RetImp(d2, k) when d1 = d2 && r <> k -> J(PreEqu(k, r)), (Some(com(tv1, tv2)), None)
+
+    //// implication-based decomposition ////////////////////////////////////////////////////////////////////////////////////
+    //Same as for inheritance again
+    
+        (S ==> M), ((||,S,A_1..n) ==> M) |- ((||,A_1..n) ==> M), (Truth:DecomposePositiveNegativeNegative, Order:ForAllSame)
+		/* J(Imp(s, m1)), Imp(Or(a_1_n), m2) when m1 = m2 && a_1_n |> List.contains s -> J(Imp(reduce(Or(listRemove s a_1_n)), m1)), (Some(pnn(tv1, tv2)), None)
+
+        (S ==> M), ((&&,S,A_1..n) ==> M) |- ((&&,A_1..n) ==> M), (Truth:DecomposeNegativePositivePositive, Order:ForAllSame, SequenceIntervals:FromBelief)
+		/* J(Imp(s, m1)), Imp(And(a_1_n), m2) when m1 = m2 && a_1_n |> List.contains s -> J(Imp(reduce(And(listRemove s a_1_n)), m1)), (Some(npp(tv1, tv2)), None)
+
+        (M ==> S), (M ==> (&&,S,A_1..n)) |- (M ==> (&&,A_1..n)), (Truth:DecomposePositiveNegativeNegative, Order:ForAllSame, SequenceIntervals:FromBelief)
+		/* J(Imp(m1, s)), Imp(m2, And(a_1_n)) when m1 = m2 && a_1_n |> List.contains s -> J(Imp(reduce(And(listRemove s a_1_n)), m1)), (Some(pnn(tv1, tv2)), None)
+
+        (M ==> S), (M ==> (||,S,A_1..n)) |- (M ==> (||,A_1..n)), (Truth:DecomposeNegativePositivePositive, Order:ForAllSame)
+		/* J(Imp(m1, s)), Imp(m2, Or(a_1_n)) when m1 = m2 && a_1_n |> List.contains s -> J(Imp(reduce(Or(listRemove s a_1_n)), m1)), (Some(npp(tv1, tv2)), None)
+    
+    //// conditional syllogism ////////////////////////////////////////////////////////////////////////////////////
+    //If after M, P usually happens, and M happens, it means P is expected to happen
+    
+        M, (M ==> P), shift_occurrence_forward(M,"==>")  |- P, (Truth:Deduction, Desire:Induction, Order:ForAllSame)
+		/* J(m1), Imp(m2, p) when m1 = m1 -> J(p), (Some(ded(tv1, tv2)), Some(desireInd(dv1, dv2)))
+
+        M, (P ==> M), shift_occurrence_backward(P,"==>") |- P, (Truth:Abduction, Desire:Deduction, Order:ForAllSame)
+		/* J(m1), Imp(p, m2) when m1 = m2 -> J(p), (Some(abd(tv1, tv2)), Some(desireDed(dv1, dv2))) 
+
+        M, (S <=> M), shift_occurrence_backward(M,"<=>") |- S, (Truth:Analogy, Desire:Strong, Order:ForAllSame)
+		/* J(m1), Equ(s, m2) when m1 = m2 -> J(s), (Some(ana(tv1, tv2)), Some(desireStrong(dv1, dv2)))
+
+        M, (M <=> S), shift_occurrence_forward(S,"==>")  |- S, (Truth:Analogy, Desire:Strong, Order:ForAllSame)
+		/* J(m1), Equ(m2, s) when m1 = m2 -> J(s), (Some(ana(tv1, tv2)), Some(desireStrong(dv1, dv2)))
+
+    //// conditional composition: ////////////////////////////////////////////////////////////////////////////////////
+    //They are let out for AGI purpose, don't let the system generate conjunctions or useless <=> and ==> statements
+    //For this there needs to be a semantic dependence between both, either by the predicate or by the subject,
+    //or a temporal dependence which acts as special case of semantic dependence
+    //These cases are handled by "Variable Introduction" and "Temporal Induction"
+    
+    //   P, S, no_common_subterm(S,P) |- (S ==> P), (Truth:Induction)
+    //   P, S, no_common_subterm(S,P) |- (S <=> P), (Truth:Comparison)
+    //   P, S, no_common_subterm(S,P) |- (P && S), (Truth:Intersection)
+    //   P, S, no_common_subterm(S,P) |- (P || S), (Truth:Union)
+    
+    //// conjunction decompose
+    
+        (&&,A_1..n), A_1 |- A_1, (Truth:StructuralDeduction, Desire:StructuralStrong, Order:ForAllSame)
+		/* J(And(a_1::a_1_n)), _ -> J(a_1), (Some(structuralDed(tv1)), Some(desireStructuralStrong(tv1))) 
+
+        (&/,B,A_1..n), B, task("!") |- (&/,A_1..n), (Desire:Strong, SequenceIntervals:FromTask)			// TODO SequenceIntervals
+		/* G(Seq(a_1_n)), b when a_1_n |> List.contains b -> G(Seq(a_1_n |> listRemove b)), (None, Some(desireStrong(dv1, dv2)))
+    
+    //// propositional decomposition ////////////////////////////////////////////////////////////////////////////////////
+    //If S is the case, and (&&,S,A_1..n) is not the case, it can't be that (&&,A_1..n) is the case
+    
+        S, (&&,S,A_1..n) |- (&&,A_1..n), (Truth:DecomposePositiveNegativeNegative, Order:ForAllSame, SequenceIntervals:FromBelief)
+		/* J(s), And(a_1_n) when a_1_n |> List.contains s -> J(reduce(And(listRemove s a_1_n))), (Some(pnn(tv1, tv2)), None)
+
+        S, (||,S,A_1..n) |- (||,A_1..n), (Truth:DecomposeNegativePositivePositive)
+		/* J(s), Or(a_1_n) when a_1_n |> List.contains s -> J(reduce(Or(listRemove s a_1_n))), (Some(npp(tv1, tv2)), None)
+    
+    //Additional for negation: https://groups.google.com/forum/#!topic/open-nars/g-7r0jjq2Vc
+    
+        S, (&&,(--S),A_1..n) |- (&&,A_1..n), (Truth:DecomposeNegativeNegativeNegative, Order:ForAllSame, SequenceIntervals:FromBelief)
+		/* J(s), And(a_1_n) when a_1_n |> List.contains (Not(s)) -> J(reduce(And(a_1_n |> listRemove (Not(s))))), (Some(nnn(tv1, tv2)), None)
+
+        S, (||,(--S),A_1..n) |- (||,A_1..n), (Truth:DecomposePositivePositivePositive)	// TODO
+    
+    //// multi-conditional syllogism ////////////////////////////////////////////////////////////////////////////////////
+    //Inference about the pre/postconditions
+    
+        Y, ((&&,X,A_1..n) ==> B), substitute_if_unifies("$",X,Y) |- ((&&,A_1..n) ==> B), (Truth:Deduction, Order:ForAllSame, SequenceIntervals:FromBelief)
+		// /* J(y, Imp(And(a_1_n))), b) when // TODO *** Check with Patrick the semantics
+
+        ((&&,M,A_1..n) ==> C), ((&&,A_1..n) ==> C) |- M, (Truth:Abduction, Order:ForAllSame)
+		/* J(Imp(And(a_1_n), c1)), Imp(And(b_1_n), c2) when ((set a_1_n) - (set b_1_n) |> Set.count) = 1 -> J(((set a_1_n) - (set b_1_n) |> Set.maxElement)), (Some(abd(tv1, tv2)), None)
+
+    //Can be derived by NAL7 rules so this won't be necessary there (Order:ForAllSame left out here)
+    
+    //the first rule does not have Order:ForAllSame because it would be invalid, see: https://groups.google.com/forum/#!topic/open-nars/r5UJo64Qhrk
+        ((&&,A_1..n) ==> C), M, not_implication_or_equivalence(M) |- ((&&,M,A_1..n) ==> C), (Truth:Induction)
+		/* J(Imp(And(a_1_n), c)), m when not_imp_or_equ(m) -> J(Imp(reduce(And(sort(m::a_1_n))), c)), (Some(ind(tv1, tv2)), None)
+
+        ((&&,A_1..n) =|> C), M, not_implication_or_equivalence(M) |- ((&&,M,A_1..n) =|> C), (Truth:Induction)
+		/* J(ConImp(And(a_1_n), c)), m when not_imp_or_equ(m) -> J(ConImp(reduce(And(sort(m::a_1_n))), c)), (Some(ind(tv1, tv2)), None)
+
+        ((&&,A_1..n) =/> C), M, not_implication_or_equivalence(M) |- ((&&,M,A_1..n) =/> C), (Truth:Induction)
+		/* J(PreImp(And(a_1_n), c)), m when not_imp_or_equ(m) -> J(PreImp(reduce(And(sort(m::a_1_n))), c)), (Some(ind(tv1, tv2)), None)
+
+        ((&&,A_1..n) =\> C), M, not_implication_or_equivalence(M) |- ((&&,M,A_1..n) =\> C), (Truth:Induction)
+		/* J(RetImp(And(a_1_n), c)), m when not_imp_or_equ(m) -> J(RetImp(reduce(And(sort(m::a_1_n))), c)), (Some(ind(tv1, tv2)), None)
+
+        ((&&,M,A_1..n) ==> C), (A ==> M) |- ((&&,A,A_1..n) ==> C), (Truth:Deduction, Order:ForAllSame, SequenceIntervals:FromTask)
+		/* J(Imp(And(a_1_n), c)), Imp(a, m) when a_1_n |> List.contains m -> J(Imp(reduce(And(sort(a::(a_1_n |> listRemove m)))), c)), (Some(ded(tv1, tv2)), None)
+
+        ((&&,M,A_1..n) ==> C), ((&&,A,A_1..n) ==> C) |- (A ==> M), (Truth:Induction, Order:ForAllSame)
+		/* J(Imp(And(m::a_1_n), c1)), Imp(And(a::b_1_n), c2) when c1 = c2 && a_1_n = b_1_n -> J(Imp(a, m)), (Some(ind(tv1, tv2)), None)
+
+        ((&&,A,A_1..n) ==> C), (A ==> M) |- ((&&,M,A_1..n) ==> C), (Truth:Abduction, Order:ForAllSame, SequenceIntervals:FromTask)
+		/* J(Imp(And(a_1_n), c)), Imp(a, m) when a_1_n |> List.contains a -> J(Imp(reduce(And(sort(m::(a_1_n |> listRemove a)))), c)), (Some(abd(tv1, tv2)), None)
+    
+    //// variable introduction ////////////////////////////////////////////////////////////////////////////////////
+    //Introduce variables by common subject or predicate
+    
+        (S --> M), (P --> M), not_equal(S,P) |- ((P --> $X) ==> (S --> $X)), (Truth:Abduction),
+                                                ((S --> $X) ==> (P --> $X)), (Truth:Induction),
+                                                ((P --> $X) <=> (S --> $X)), (Truth:Comparison),
+                                                (&&,(S --> #Y),(P --> #Y)), (Truth:Intersection)
+		/* J(Inh(s, m1)), Inh(p, m2) when s <> p && m1 = m2 -> J(Imp(Inh(p, IVar("X")), Inh(s, IVar("X")))), (Some(abd(tv1, tv2)), None)
+		/* J(Inh(s, m1)), Inh(p, m2) when s <> p && m1 = m2 -> J(Imp(Inh(s, IVar("X")), Inh(s, IVar("X")))), (Some(ind(tv1, tv2)), None)
+		/* J(Inh(s, m1)), Inh(p, m2) when s <> p && m1 = m2 -> J(Equ(Inh(p, IVar("X")), Inh(s, IVar("X")))), (Some(com(tv1, tv2)), None)
+		/* J(Inh(s, m1)), Inh(p, m2) when s <> p && m1 = m2 -> J(reduce(And(sort([Inh(s, DVar("Y")); Inh(p, DVar("Y"))])))), (Some(int(tv1, tv2)), None)
+
+        (S --> M), (P --> M), not_equal(S,P), measure_time(I) |- ((&/,(P --> $X),I) =/> (S --> $X)), (Truth:Abduction),
+                                                                 ((S --> $X) =\> (&/,(P --> $X),I)), (Truth:Induction),
+                                                                 ((&/,(P --> $X),I) </> (S --> $X)), (Truth:Comparison),
+                                                                 (&/,(P --> #Y), I, (S --> #Y)), (Truth:Intersection)
+		/* J(Inh(s, m1)), Inh(p, m2) when s <> p && m1 = m2 -> J(PreImp(Seq([Inh(p, IVar("X"))]), Inh(s, IVar("X")))), (Some(abd(tv1, tv2)), None)
+		/* J(Inh(s, m1)), Inh(p, m2) when s <> p && m1 = m2 -> J(RetImp(Inh(s, IVar("X")), Seq([Inh(p, IVar("X"))]))), (Some(ind(tv1, tv2)), None)
+		/* J(Inh(s, m1)), Inh(p, m2) when s <> p && m1 = m2 -> J(PreEqu(Seq([Inh(p, IVar("X"))]), Inh(s, IVar("X")))), (Some(com(tv1, tv2)), None)
+		/* J(Inh(s, m1)), Inh(p, m2) when s <> p && m1 = m2 -> J(Seq([Inh(p, DVar("Y")); Inh(s, DVar("Y"))])), (Some(int(tv1, tv2)), None)
+
+    
+        (S --> M), (P --> M), not_equal(S,P), concurrent(Task,Belief) |- ((P --> $X) =|> (S --> $X)), (Truth:Abduction),
+                                                                         ((S --> $X) =|> (P --> $X)), (Truth:Induction),
+                                                                         ((P --> $X) <|> (S --> $X)), (Truth:Comparison),
+                                                                         (&|,(P --> #Y),(S --> #Y)), (Truth:Intersection)
+		/* J(Inh(s, m1)), Inh(p, m2) when s <> p && m1 = m2 -> J(ConImp(Inh(p, IVar("X")), Inh(s, IVar("X")))), (Some(abd(tv1, tv2)), None)
+		/* J(Inh(s, m1)), Inh(p, m2) when s <> p && m1 = m2 -> J(ConImp(Inh(s, IVar("X")), Inh(p, IVar("X")))), (Some(ind(tv1, tv2)), None)
+		/* J(Inh(s, m1)), Inh(p, m2) when s <> p && m1 = m2 -> J(ConEqu(Inh(p, IVar("X")), Inh(s, IVar("X")))), (Some(com(tv1, tv2)), None)
+		/* J(Inh(s, m1)), Inh(p, m2) when s <> p && m1 = m2 -> J(Par(sort [Inh(p, DVar("Y")); Inh(s, DVar("Y"))])), (Some(int(tv1, tv2)), None)
+
+    
+        (M --> S), (M --> P), not_equal(S,P) |- (($X --> S) ==> ($X --> P)), (Truth:Induction),
+                                                (($X --> P) ==> ($X --> S)), (Truth:Abduction),
+                                                (($X --> S) <=> ($X --> P)), (Truth:Comparison),
+                                                (&&,(#Y --> S),(#Y --> P)), (Truth:Intersection)
+		/* J(Inh(m1, s)), Inh(m2, p) when s <> p && m1 = m2 -> J(Imp(Inh(IVar("X"), s), Inh(IVar("X"), p))), (Some(abd(tv1, tv2)), None)
+		/* J(Inh(m1, s)), Inh(m2, p) when s <> p && m1 = m2 -> J(Imp(Inh(IVar("X"), p), Inh(IVar("X"), s))), (Some(ind(tv1, tv2)), None)
+		/* J(Inh(m1, s)), Inh(m2, p) when s <> p && m1 = m2 -> J(Equ(Inh(IVar("X"), s), Inh(IVar("X"), p))), (Some(com(tv1, tv2)), None)
+		/* J(Inh(m1, s)), Inh(m2, p) when s <> p && m1 = m2 -> J(reduce(And(sort [Inh(DVar("Y"), s); Inh(DVar("Y"), p)]))), (Some(int(tv1, tv2)), None)
+    
+        (M --> S), (M --> P), not_equal(S,P), measure_time(I) |- ((&/,($X --> S),I) =/> ($X --> P)), (Truth:Induction),
+                                                                 (($X --> P) =\> (&/,($X --> S),I)), (Truth:Abduction),
+                                                                 ((&/,($X --> S),I) </> ($X --> P)), (Truth:Comparison),
+                                                                 (&/,(#Y --> S), I ,(#Y --> P)), (Truth:Intersection)
+		/* J(Inh(m1, s)), Inh(m2, p) when s <> p && m1 = m2 -> J(PreImp(Seq([Inh(IVar("X"), s)]), Inh(IVar("X"), p))), (Some(abd(tv1, tv2)), None)
+		/* J(Inh(m1, s)), Inh(m2, p) when s <> p && m1 = m2 -> J(RetImp(Inh(IVar("X"), p), Seq([Inh(IVar("X"), s)]))), (Some(ind(tv1, tv2)), None)
+		/* J(Inh(m1, s)), Inh(m2, p) when s <> p && m1 = m2 -> J(PreEqu(Seq([Inh(IVar("X"), s)]), Inh(IVar("X"), p))), (Some(com(tv1, tv2)), None)
+		/* J(Inh(m1, s)), Inh(m2, p) when s <> p && m1 = m2 -> J(Seq([Inh(DVar("Y"), s); Inh(DVar("Y"), p)])), (Some(int(tv1, tv2)), None)
+    
+        (M --> S), (M --> P), not_equal(S,P), concurrent((M --> P),(M --> S)) |- (($X --> S) =|> ($X --> P)), (Truth:Induction),
+                                                                                 (($X --> P) =|> ($X --> S)), (Truth:Abduction),
+                                                                                 (($X --> S) <|> ($X --> P)), (Truth:Comparison),
+                                                                                 (&|,(#Y --> S),(#Y --> P)), (Truth:Intersection)
+		/* J(Inh(m1, s)), Inh(m2, p) when s <> p && m1 = m2 -> J(ConImp(Inh(IVar("X"), s), Inh(IVar("X"), p))), (Some(abd(tv1, tv2)), None)
+		/* J(Inh(m1, s)), Inh(m2, p) when s <> p && m1 = m2 -> J(ConImp(Inh(IVar("X"), p), Inh(IVar("X"), s))), (Some(ind(tv1, tv2)), None)
+		/* J(Inh(m1, s)), Inh(m2, p) when s <> p && m1 = m2 -> J(ConEqu(Inh(IVar("X"), s), Inh(IVar("X"), p))), (Some(com(tv1, tv2)), None)
+		/* J(Inh(m1, s)), Inh(m2, p) when s <> p && m1 = m2 -> J(Par(sort [Inh(DVar("Y"), s); Inh(DVar("Y"), p)])), (Some(int(tv1, tv2)), None)
+    
+    //// 2nd variable introduction ////////////////////////////////////////////////////////////////////////////////////
+    
+        (A ==> (M --> P)), (M --> S), not_equal(A, (M --> S)) |- ((&&,A,($X --> S)) ==> ($X --> P)), (Truth:Induction),
+                                                                 (&&,(A ==> (#Y --> P)), (#Y --> S)), (Truth:Intersection)
+		/* J(Imp(a, Inh(m1, p))), Inh(m2, s) when m1 = m2 && a <> Inh(m1, s) && s <> p -> J(Imp(reduce(And(sort[a; Inh(IVar("Y"), s)])), Inh(IVar("Y"), s))), (Some(ind(tv1, tv2)), None) 
+		/* J(Imp(a, Inh(m1, p))), Inh(m2, s) when m1 = m2 && a <> Inh(m1, s) && s <> p -> J(reduce(And(sort[Imp(a, Inh(DVar("Y"), p)); Inh(DVar("Y"), s)]))), (Some(int(tv1, tv2)), None) 
+    
+        (&&,(M --> P), A_1..n), (M --> S), not_equal(S,P) |- (($Y --> S) ==> (&&,($Y --> P), A_1..n)), (Truth:Induction),
+                                                             (&&,(#Y --> S), (#Y --> P), A_1..n), (Truth:Intersection)
+		/* J(And(Inh(m1, p)::a_1_n)), Inh(m2, s) when m1 = m2 && s <> p -> J(Imp(Inh(IVar("Y"), s), reduce(And(sort(Inh(IVar("Y"), p)::(a_1_n |> listRemove (Inh(m1, p)))))))), (Some(ind(tv1, tv2)), None)
+		/* J(And(Inh(m1, p)::a_1_n)), Inh(m2, s) when m1 = m2 && s <> p -> J(reduce(And(sort(Inh(DVar("Y"), s)::Inh(DVar("Y"), p)::(a_1_n |> listRemove (Inh(m1, p))))))), (Some(ind(tv1, tv2)), None)
+    
+        (A ==> (P --> M)), (S --> M), not_equal(S,P), not_equal(A, (S --> M)) |- ((&&,A,(P --> $X)) ==> (S --> $X)), (Truth:Abduction),
+                                                                                 (&&,(A ==> (P --> #Y)), (S --> #Y)), (Truth:Intersection)
+		/* J(Imp(a, Inh(p, m1))), Inh(s, m2) when s <> p && m1 = m2 && s <> m1 -> J(Imp(reduce(And(sort [a; Inh(p, IVar("X"))])), Inh(s, IVar("X")))), (Some(abd(tv1, tv2)), None)
+		/* J(Imp(a, Inh(p, m1))), Inh(s, m2) when s <> p && m1 = m2 && s <> m1 -> J(reduce(And(sort [Imp(a, Inh(p, DVar("Y"))); Inh(s, DVar("Y"))]))), (Some(int(tv1, tv2)), None)
+    
+        (&&,(P --> M), A_1..n), (S --> M), not_equal(S,P) |- ((S --> $Y) ==> (&&,(P --> $Y), A_1..n)), (Truth:Abduction),
+                                                             (&&, (S --> #Y), (P --> #Y), A_1..n), (Truth:Intersection)
+		/* J(And(Inh(p, m1)::a_1_n)), Inh(s, m2) when s <> p && m1 = m2 -> J(Imp(Inh(s, IVar("Y")), reduce(And(sort (Inh(s, DVar("Y"))::Inh(p, DVar("Y"))::(a_1_n |> listRemove (Inh(p, m1)))))))), (Some(abd(tv1, tv2)), None)
+    	/* J(And(Inh(p, m1)::a_1_n)), Inh(s, m2) when s <> p && m1 = m2 -> J(reduce(And(sort(Inh(s, DVar("Y"))::Inh(p, DVar("Y"))::(a_1_n |> listRemove (Inh(p, m1))))))), (Some(int(tv1, tv2)), None)
+
+    //// dependent variable elimination ////////////////////////////////////////////////////////////////////////////////////
+    //Decomposition with elimination of a variable
+    
+        (&&,A, A_1..n), B, substitute_if_unifies("#",A,B) |- (&&,A_1..n), (Truth:AnonymousAnalogy, Desire:Strong, Order:ForAllSame, SequenceIntervals:FromTask)
+		// TODO do this one by hand
+
+    //conditional abduction by dependent variable
+    
+        ((A --> R) ==> Z), ((&&,(#Y --> B),(#Y --> R),A_1..n) ==> Z) |- (A --> B), (Truth:Abduction)
+		// /* J(Imp(Inh(a, r), z1), Imp(And(a_1_n), z2) when z1 = z2 && a_1_n |> List.contains (Inh(DVar))) 
+		// TODO Need to finish this
+
+        ((A --> R) ==> Z), ((&&,(#Y --> B),(#Y --> R)) ==> Z) |- (A --> B), (Truth:Abduction)
+		/* J(Imp(Inh(a, r1), z1)), Imp(And([Inh(DVar(y1), b); Inh(DVar(y2), r2)]), z2) when z1 = z2 && r1 = r2 -> J(Inh(a, b)), (Some(abd(tv1, tv2)), None)
+    
+    // conditional deduction "An inverse inference has been implemented as a form of deduction" https://code.google.com/p/open-nars/issues/detail?id=40&can=1
+    
+        (U --> L), ((&&,(#X --> L),(#X --> R)) ==> Z) |- ((U --> R) ==> Z), (Truth:Deduction)
+		/* J(Inh(u, l1)), Imp(And([Inh(DVar(x), l2); Inh(DVar(y), r)]), z) when l1 = l2 && x = y -> J(Imp(Inh(u, r), z)), (Some(ded(tv1, tv2)), None)
+
+        (U --> L), ((&&,(#X --> L),(#X --> R),A_1..n) ==> Z), substitute(#X,U) |- ((&&,(U --> R),A_1..n) ==> Z), (Truth:Deduction)// TODO Only partial solution
+		/* J(Inh(u, l1)), Imp(And(Inh(DVar(x), l2)::Inh(DVar(y), r)::a_1_n), z) when l1 = l2 && x = y -> J(Imp(reduce(And(sort(Inh(u, r)::a_1_n))), z)), (Some(ded(tv1, tv2)), None)	
+
+    //// independent variable elimination ////////////////////////////////////////////////////////////////////////////////////
+    
+        B, (A ==> C), substitute_if_unifies("$",A,B), shift_occurrence_forward(A,"==>")  |- C, (Truth:Deduction, Order:ForAllSame, Event:Anticipate)
+		// (S --> P), (($X --> P) ==> ($X --> H)) |- (S --> H) example of simple form of rule
+		/* J(Inh(s, p1)), Imp(Inh(IVar(x1), p2), Inh(IVar(x2), h)) when p1 = p2 && x1 = x2 -> J(Inh(s, h)), (Some(ded(tv1, tv2)), None)
+		/* J(Inh(s1, p)), Imp(Inh(s2, IVar(x1)), Inh(h, IVar(x2))) when s1 = s2 && x1 = x2 -> J(Inh(h, s1)), (Some(ded(tv1, tv2)), None)
+
+        B, (C ==> A), substitute_if_unifies("$",A,B), shift_occurrence_backward(A,"==>") |- C, (Truth:Abduction, Order:ForAllSame)
+		// (S --> P), (($X --> H) ==> ($X --> P)) |- (S --> H) example of simple form of rule
+		/* J(Inh(s, p1)), Imp(Inh(IVar(x1), h), Inh(IVar(x2), p2)) when p1 = p2 && x1 = x2 -> J(Inh(s, h)), (Some(abd(tv1, tv2)), None)
+		/* J(Inh(s1, p)), Imp(Inh(h, IVar(x1)), Inh(s2, IVar(x2))) when s1 = s2 && x1 = x2 -> J(Inh(h, s1)), (Some(abd(tv1, tv2)), None)
+
+        B, (A <=> C), substitute_if_unifies("$",A,B), shift_occurrence_backward(C,"<=>") |- C, (Truth:Deduction, Order:ForAllSame)
+	    // (S --> P), (($X --> P) <=> ($X --> H)) |- (S --> H) example of simple form of rule
+		/* J(Inh(s, p1)), Equ(Inh(IVar(x1), p2), Inh(IVar(x2), h)) when p1 = p2 && x1 = x2 -> J(Inh(s, h)), (Some(ded(tv1, tv2)), None)
+		/* J(Inh(s1, p)), Equ(Inh(s2, IVar(x1)), Inh(h, IVar(x2))) when s1 = s2 && x1 = x2 -> J(Inh(h, s1)), (Some(ded(tv1, tv2)), None)
+
+        B, (C <=> A), substitute_if_unifies("$",A,B), shift_occurrence_forward(C,"<=>") |- C, (Truth:Deduction, Order:ForAllSame)
+        // (S --> P), (($X --> H) ==> ($X --> P)) |- (S --> H) example of simple form of rule
+		/* J(Inh(s, p1)), Equ(Inh(IVar(x1), h), Inh(IVar(x2), p2)) when p1 = p2 && x1 = x2 -> J(Inh(s, h)), (Some(ded(tv1, tv2)), None)
+		/* J(Inh(s1, p)), Equ(Inh(h, IVar(x1)), Inh(s2, IVar(x2))) when s1 = s2 && x1 = x2 -> J(Inh(h, s1)), (Some(ded(tv1, tv2)), None)
+
+    //// second level variable handling rules ////////////////////////////////////////////////////////////////////////////////////
+    //second level variable elimination (termlink level2 growth needed in order for these rules to work)
+    
+        (A --> K), (&&,(#X --> L),(($Y --> K) ==> (&&,A_1..n))), substitute($Y,A) |- (&&,(#X --> L),A_1..n), (Truth:Deduction)
+		/* J(Inh(a, k1)), Imp(And([Inh(DVar(x), l); Inh(IVar(y), k2)]), And(a_1_n)) when k1 = k2 && x <> y -> J(subst(reduce(And(sort(Inh(DVar(x), l)::a_1_n)))) (IVar(y)) a), (Some(ded(tv1, tv2)), None)
+		/* J(Inh(a, k1)), Imp(And([Inh(IVar(y), k2); Inh(DVar(x), l)]), And(a_1_n)) when k1 = k2 && x <> y -> J(subst(reduce(And(sort(Inh(DVar(x), l)::a_1_n)))) (IVar(y)) a), (Some(ded(tv1, tv2)), None)
+
+        (A --> K), (($X --> L) ==> (&&,(#Y --> K),A_1..n)), substitute(#Y,A) |- (($X --> L) ==> (&&,A_1..n)), (Truth:AnonymousAnalogy)
+		/* J(Inh(a, k1)), Imp(Inh(IVar(x), l), And(Inh(DVar(y), k2)::a_1_n)) when k1 = k2 && a_1_n |> List.contains (Inh(DVar(y), k1)) -> J(subst(Imp(Inh(IVar(x), l), reduce(And(a_1_n |> listRemove (Inh(DVar(y), k1)))))) (DVar(y)) a), (Some(anonAna(tv1, tv2)), None)
+    
+    //precondition combiner inference rule (variable_unification6):
+    
+        ((&&,C,A_1..n) ==> Z), ((&&,C,B_1..m) ==> Z) |- ((&&,A_1..n) ==> (&&,B_1..m)), (Truth:Induction)
+		/* J(Imp(And(a_1_n), z1)), Imp(And(b_1_n), z2) when z1 = z2 && commonSingleton b_1_n a_1_n -> J(Imp(reduce(And(removeCommon a_1_n b_1_n)), reduce(And(removeCommon b_1_n a_1_n)))), (Some(ind(tv1, tv2)), None)
+
+        ((&&,C,A_1..n) ==> Z), ((&&,C,B_1..m) ==> Z) |- ((&&,B_1..m) ==> (&&,A_1..n)), (Truth:Induction)
+		/* J(Imp(And(a_1_n), z1)), Imp(And(b_1_n), z2) when z1 = z2 && commonSingleton b_1_n a_1_n -> J(Imp(reduce(And(removeCommon b_1_n a_1_n)), reduce(And(removeCommon a_1_n b_1_n)))), (Some(ind(tv1, tv2)), None)
+
+        (Z ==> (&&,C,A_1..n)), (Z ==> (&&,C,B_1..m)) |- ((&&,A_1..n) ==> (&&,B_1..m)), (Truth:Abduction)
+		/* J(Imp(z1, And(a_1_n))), Imp(z2, And(b_1_n)) when z1 = z2 && commonSingleton b_1_n a_1_n -> J(Imp(reduce(And(removeCommon a_1_n b_1_n)), reduce(And(removeCommon b_1_n a_1_n)))), (Some(ind(tv1, tv2)), None)
+
+        (Z ==> (&&,C,A_1..n)), (Z ==> (&&,C,B_1..m)) |- ((&&,B_1..m) ==> (&&,A_1..n)), (Truth:Abduction)
+		/* J(Imp(z1, And(a_1_n))), Imp(z2, And(b_1_n)) when z1 = z2 && commonSingleton b_1_n a_1_n -> J(Imp(reduce(And(removeCommon b_1_n a_1_n)), reduce(And(removeCommon a_1_n b_1_n)))), (Some(ind(tv1, tv2)), None)
+
+    //second level variable introduction
+    
+        (A --> L), ((A --> S) ==> R) |- ((&&,(#X --> L),(#X --> S)) ==> R), (Truth:Induction)
+		/* J(Inh(a1, l)), Imp(Inh(a2, s), r) when a1 = a2 -> J(Imp(reduce(And(sort([Inh(DVar("X"), l); Inh(DVar("X"), s)]))), r)), (Some(ind(tv1, tv2)), None)
+
+        (A --> L), ((&&,(A --> S),A_1..n) ==> R), substitute(A,#X) |- ((&&,(#X --> L),(#X --> S),A_1..n) ==> R), (Truth:Induction)
+		/* J(Inh(a1, l)), Imp(And(Inh(a2, s)::a_1_n), r) when a1 = a2 -> J(subst(Imp(reduce(And(sort(Inh(DVar("X"), l)::Inh(DVar("X"), s)::a_1_n))), r)) a1 (DVar("X"))), (Some(ind(tv1, tv2)), None)
+    
+    ////NAL7 specific inference ////////////////////////////////////////////////////////////////////////////////////
+    //Reasoning about temporal statements. those are using the ==> relation because relation in time is a relation of the truth between statements.
+    
+//        X, (XI ==> B), substitute_if_unifies("$",XI,(&/,X,/1)), shift_occurrence_forward(XI,"==>") |- B, (Truth:Deduction, Desire:Induction, Order:ForAllSame, Event:Anticipate)
+        X, (BI ==> Y), substitute_if_unifies("$",Y,X), shift_occurrence_backward(BI,"==>") |- BI, (Truth:Abduction, Desire:Deduction, Order:ForAllSame)
+    
+    ////Temporal induction: ////////////////////////////////////////////////////////////////////////////////////
+    //When P and then S happened according to an observation, by induction (weak) it may be that alyways after P, usually S happens.
+    
+        P, S, after(Task,Belief), measure_time(I), not_implication_or_equivalence(P), not_implication_or_equivalence(S) |- ((&/,S,I) =/> P), (Truth:Induction, Eternalize:Immediate),
+                                                                                                                           (P =\> (&/,S,I)), (Truth:Abduction),
+                                                                                                                           ((&/,S,I) </> P), (Truth:Comparison)
+    
+        P, S, after(Task,Belief), not_conjunction(P), not_conjunction(S),  measure_time(I), not_implication_or_equivalence(P), not_implication_or_equivalence(S) |- (&/,S,I,P), (Truth:Intersection)
+    
+        P, S, concurrent(Task,Belief), not_implication_or_equivalence(P), not_implication_or_equivalence(S) |- (S =|> P), (Truth:Induction, Eternalize:Immediate),
+                                                                                                               (P =|> S), (Truth:Induction),
+                                                                                                               (S <|> P), (Truth:Comparison)
+    
+        P, S, concurrent(Task,Belief), not_conjunction(P), not_conjunction(S), not_implication_or_equivalence(P), not_implication_or_equivalence(S) |- (&|,S,P), (Truth:Intersection)
+    
+    ////backward inference is mostly handled by the rule transformation:
+    
+    //    T, B |- C, [post] =>
+    //          C, B, task("?") |- T, [post]
+    //          C, T, task("?") |- B, [post]
+    
+    //here now are the backward inference rules which should really only work on backward inference:
+    
+        (A --> S), (B --> S), task("?") |- (A --> B), (Punctuation:Question),
+                                           (B --> A), (Punctuation:Question)
+		/* Q(Inh(a, s1)), Inh(b, s2) when s1 = s2 -> Q(Inh(a, b)), (None, None)
+		/* Q(Inh(a, s1)), Inh(b, s2) when s1 = s2 -> Q(Inh(b, a)), (None, None)
+
+    //and the backward inference driven forward inference:
+    
+    //NAL2:
+    
+        ([A] <-> [B]), (A <-> B), task("?") |- ([A] <-> [B]), (Truth:BeliefIdentity, Punctuation:Judgment)
+		/* Q(Sim(IntSet([a1]), IntSet([b1]))), Sim(a2, b2) when a1 = a2 && b1 = b2 && a1 <> b1 -> J(Sim(IntSet([a1]), IntSet([b1]))), (Some(beliefId(tv1, tv2)), None)
+
+        ({A} <-> {B}), (A <-> B), task("?") |- ({A} <-> {B}), (Truth:BeliefIdentity, Punctuation:Judgment)
+		/* Q(Sim(ExtSet([a1]), ExtSet([b1]))), Sim(a2, b2) when a1 = a2 && b1 = b2 && a1 <> b1 -> J(Sim(ExtSet([a1]), ExtSet([b1]))), (Some(beliefId(tv1, tv2)), None)
+
+        ([A] --> [B]), (A <-> B), task("?") |- ([A] --> [B]), (Truth:BeliefIdentity, Punctuation:Judgment)
+   	    /* Q(Inh(IntSet([a1]), IntSet([b1]))), Sim(a2, b2) when a1 = a1 && b1 = b2 && a1 <> b1 -> J(Inh(IntSet([a1]), IntSet([b1]))), (Some(beliefId(tv1, tv2)), None)
+
+        ({A} --> {B}), (A <-> B), task("?") |- ({A} --> {B}), (Truth:BeliefIdentity, Punctuation:Judgment)
+		/* Q(Inh(ExtSet([a1]), ExtSet([b1]))), Sim(a2, b2) when a1 = a2 && b1 = b2 && a1 <> b1 -> J(Inh(ExtSet([a1]), ExtSet([b1]))), (Some(beliefId(tv1, tv2)), None)
+    
+    //NAL3:
+    
+    ////composition on both sides of a statement:
+    
+        ((&,B,A_1..n) --> (&,A,A_1..n)), (B --> A), task("?") |- ((&,B,A_1..n) --> (&,A,A_1..n)), (Truth:beliefStructuralDeduction, Punctuation:Judgment)
+		/* Q(Inh(ExtInt(a_1_n), ExtInt(b_1_n))), Inh(b, a) when (a_1_n |> List.contains b) && (b_1_n |> List.contains a) && ((set a_1_n) |> Set.remove b) = ((set b_1_n) |> Set.remove a) -> J(Inh(ExtInt(sort(a_1_n)), ExtInt(sort(b_1_n)))), (Some(beliefStructuralDed(tv1, tv2)), None)
+
+        ((|,B,A_1..n) --> (|,A,A_1..n)), (B --> A), task("?") |- ((|,B,A_1..n) --> (|,A,A_1..n)), (Truth:beliefStructuralDeduction, Punctuation:Judgment)
+		/* Q(Inh(IntInt(a_1_n), IntInt(b_1_n))), Inh(b, a) when (a_1_n |> List.contains b) && (b_1_n |> List.contains a) && ((set a_1_n) |> Set.remove b) = ((set b_1_n) |> Set.remove a) -> J(Inh(IntInt(sort(a_1_n)), IntInt(sort(b_1_n)))), (Some(beliefStructuralDed(tv1, tv2)), None)
+    
+        ((-,S,A) --> (-,S,B)), (B --> A), task("?") |- ((-,S,A) --> (-,S,B)), (Truth:beliefStructuralDeduction, Punctuation:Judgment)
+		/* Q(Inh(ExtDif(s1, a1), ExtDif(s2, b1))), Inh(b2, a2) when a1 = a2 && b1 = b1 && s1 = s2 && a1 <> b1 -> J(Inh(ExtDif(s1, a1), ExtDif(s1, b1))), (Some(beliefStructuralDed(tv1, tv2)), None)
+
+        ((~,S,A) --> (~,S,B)), (B --> A), task("?") |- ((~,S,A) --> (~,S,B)), (Truth:beliefStructuralDeduction, Punctuation:Judgment)
+		/* Q(Inh(IntDif(s1, a1), IntDif(s2, b1))), Inh(b2, a2) when a1 = a2 && b1 = b1 && s1 = s2 && a1 <> b1 -> J(Inh(IntDif(s1, b1), IntDif(s1, a1))), (Some(beliefStructuralDed(tv1, tv2)), None)
+    
+    ////composition on one side of aay w statement:
+    
+        (W --> (|,B,A_1..n)), (W --> B), task("?") |- (W --> (|,B,A_1..n)), (Truth:beliefStructuralDeduction, Punctuation:Judgment)
+		/* Q(Inh(w1, IntInt(a_1_n))), Inh(w2, b) when w1 = w2 && a_1_n |> List.contains b -> J(Inh(w1, reduce(IntInt(sort(a_1_n))))), (Some(beliefStructuralDed(tv1, tv2)), None)
+
+        ((&,B,A_1..n) --> W), (B --> W), task("?") |- ((&,B,A_1..n) --> W), (Truth:beliefStructuralDeduction, Punctuation:Judgment)
+		/* Q(Inh(ExtInt(a_1_n), w1)), Inh(b, w2) when w1 = w2 && a_1_n |> List.contains b -> J(Inh(reduce(ExtInt(sort(a_1_n))), w1)), (Some(beliefStructuralDed(tv1, tv2)), None)
+
+        (W --> (-,S,B)), (W --> B), task("?") |- (W --> (-,S,B)), (Truth:BeliefStructuralDifference, Punctuation:Judgment)
+		/* Q(Inh(w1, ExtDif(s, b1))), Inh(w2, b2) when b1 = b2 && w1 = w2 -> J(Inh(w1, reduce(ExtDif(s, b)))), (Some(beliefStructuralDif(tv1, tv2)), None)
+
+        ((~,S,B) --> W), (B --> W), task("?") |- ((~,S,B) --> W), (Truth:BeliefStructuralDifference, Punctuation:Judgment)
+		/* Q(Inh(IntDif(s, b1), w1)), Inh(b2, w2) when b1 = b2 && w1 = w2 -> J(Inh(reduce(IntDif(s, b1)), w1)), (Some(beliefStructuralDif(tv1, tv2)), None)
+    
+    //NAL4:
+    
+    ////composition on both sides of a statement:
+        ((B * P) --> ?X) ,(B --> A), task("?") |- ((B * P) --> (A * P)), (Truth:beliefStructuralDeduction, Punctuation:Judgment)
+		/* Q(Inh(Prod([b1; p]), QVar(x))), Inh(b2, a) when b1 = b2 -> J(Inh(reduce(Prod([b1; p])), reduce(Prod([a; p])))), (Some(beliefStructuralDed(tv1, tv2)), None)
+
+        ((B * P) --> (A * P)) ,(B --> A), task("?") |- ((B * P) --> (A * P)), (Truth:beliefStructuralDeduction, Punctuation:Judgment)
+		/* Q(Inh(Prod([b1; p1]), Prod([a1; p2]))), Inh(b2, a2) when a1 = a2 && b1 = b2 -> J(Inh(reduce(Prod([b1; p1])), reduce(Prod([a1; p1])))), (Some(beliefStructuralDed(tv1, tv2)), None)
+
+        ((\,N,A,_) --> ?X), (N --> R), task("?") |- ((\,N,A,_) --> (\,R,A,_)), (Truth:beliefStructuralDeduction, Punctuation:Judgment)
+		/* Q(Inh(IntImg([n1; a; Constant "_"]), QVar(x))), Inh(n2, r) when n1 = n2 -> J(Inh(reduce(IntImg([n1; a; Constant "_"])), reduce(IntImg([r; a; Constant "_"])))), (Some(beliefStructuralDed(tv1, tv2)), None)
+
+        ((\,N,A,_) --> (\,R,A,_)), (N --> R), task("?") |- ((\,N,A,_) --> (\,R,A,_)), (Truth:beliefStructuralDeduction, Punctuation:Judgment)
+		/* Q(Inh(IntImg([n1; a1; Constant "_"]), IntImg([r1; a2; Constant "_"]))), Inh(n2, r2) when a1 = a2 && r1 = r2 && n1 = n2 -> J(Inh(reduce(IntImg([n1; a1; Constant "_"])), reduce(IntImg([r1; a1; Constant "_"])))), (Some(beliefStructuralDed(tv1, tv2)), None)
+
+        ((/,N,_,B) --> ?X), (S --> B), task("?") |- ((/,N,_,B) --> (/,N,_,S)), (Truth:beliefStructuralDeduction, Punctuation:Judgment)
+  	    /* Q(Inh(ExtImg([n1; Constant "_"; b1]), QVar(X))), Inh(s, b2) when b1 = b2 -> J(Inh(reduce(ExtImg([n1; Constant "_"; b1])), reduce(ExtImg([n1; Constant "_"; s])))), (Some(beliefStructuralDed(tv1, tv2)), None)
+
+        ((/,N,_,B) --> (/,N,_,S)), (S --> B), task("?") |- ((/,N,_,B) --> (/,N,_,S)), (Truth:beliefStructuralDeduction, Punctuation:Judgment)
+        /* Q(Inh(ExtImg([n1; Constant "_"; b1]), ExtImg([n2; Constant "_"; s1]))), Inh(s, b2) when b1 = b2 && n1 = n2 -> J(Inh(reduce(ExtImg([n1; Constant "_"; b])), reduce(IntImg([n1; Constant "_"; s])))), (Some(beliefStructuralDed(tv1, tv2)), None)
+
+    //NAL5:
+    
+      --A,   A, task("?") |- --A, (Truth:BeliefNegation, Punctuation:Judgment)
+	   /* Q(Not(a1)), a2 when a1 = a2 -> J(reduce(Not(a1))), (Some(neg(tv1)), None)
+
+        A, --A, task("?") |-   A, (Truth:BeliefNegation, Punctuation:Judgment)
+		/* Q(a1), Not(a2) when a1 = a2 -> J(a1), (Some(neg(tv2)), None)
+    
+    //compound composition one premise
+    
+        (||,B,A_1..n), B, task("?") |- (||,B,A_1..n), (Truth:beliefStructuralDeduction, Punctuation:Judgment)
+		/* Q(Or(a_1_n)), b when a_1_n |> List.contains b -> J(reduce(reduce(Or(sort(b::a_1_n))))), (Some(beliefStructuralDed(tv1, tv2)), None)

@@ -1,0 +1,112 @@
+﻿ // Pei Wang's "Non-Axiomatic Logic" specified with a math. notation inspired DSL with given intiutive explainations:
+    
+    //The rules of NAL, can be interpreted by considering the intiution behind the following two relations:
+    // Statement:                 (A --> B):               A can stand for B
+    // Statement about Statement: (A --> B) ==> (X --> Y): If A is true, so is/will be B
+    // --> is a relation in meaning of terms, while ==> is a relation of truth between statements.
+    
+    //// Revision ////////////////////////////////////////////////////////////////////////////////////
+    // When a given belief is challenged by new experience, a new belief2 with same content (and disjoint evidental base),
+    // a new revised task, which sums up the evidence of both belief and belief2 is derived:
+    
+    //   A, A |- A, (Truth:Revision) (Commented out because it is already handled by belief management in java)
+    
+    //Similarity to Inheritance
+    
+        (S --> P), (S <-> P), task("?") |- (S --> P), (Truth:StructuralIntersection, Punctuation:Judgment)
+
+    //Inheritance to Similarity
+    
+        (S <-> P), (S --> P), task("?") |- (S <-> P), (Truth:StructuralAbduction, Punctuation:Judgment)
+    
+    //Set Definition Similarity to Inheritance
+    
+        ({S} <-> {P}), {S} |- ({S} --> {P}), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+        ({S} <-> {P}), {P} |- ({S} --> {P}), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+        ([S] <-> [P]), [S] |- ([S] --> [P]), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+        ([S] <-> [P]), [P] |- ([S] --> [P]), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+    
+        ({S} <-> {P}), {S} |- ({P} --> {S}), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+        ({S} <-> {P}), {P} |- ({P} --> {S}), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+        ([S] <-> [P]), [S] |- ([P] --> [S]), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+        ([S] <-> [P]), [P] |- ([P] --> [S]), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+
+    //Set Definition Unwrap
+    
+        ({S} <-> {P}), {S} |- (S <-> P), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+        ({S} <-> {P}), {P} |- (S <-> P), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+        ([S] <-> [P]), [S] |- (S <-> P), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+        ([S] <-> [P]), [P] |- (S <-> P), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+    
+    //Nothing is more specific than a instance, so its similar
+    
+        (S --> {P}),  S  |- (S <-> {P}), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+        (S --> {P}), {P} |- (S <-> {P}), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+    
+    //nothing is more general than a property, so its similar
+    
+        ([S] --> P), [S] |- ([S] <-> P), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+        ([S] --> P),  P  |- ([S] <-> P), (Truth:Identity, Desire:Identity, Derive:AllowBackward)
+    
+    ////// Truth-value functions: see TruthFunctions.java
+    
+    
+    // "If not smoking lets you be healthy, being not healthy may be the result of smoking"
+    
+        ( --S ==> P),   P |- ( --P ==> S), (Truth:Contraposition, Derive:AllowBackward)
+        ( --S ==> P), --S |- ( --P ==> S), (Truth:Contraposition, Derive:AllowBackward)
+        ( --S =|> P),   P |- ( --P =|> S), (Truth:Contraposition, Derive:AllowBackward)
+        ( --S =|> P), --S |- ( --P =|> S), (Truth:Contraposition, Derive:AllowBackward)
+        ( --S =/> P),   P |- ( --P =\> S), (Truth:Contraposition, Derive:AllowBackward)
+        ( --S =/> P), --S |- ( --P =\> S), (Truth:Contraposition, Derive:AllowBackward)
+        ( --S =\> P),   P |- ( --P =/> S), (Truth:Contraposition, Derive:AllowBackward)
+        ( --S =\> P), --S |- ( --P =/> S), (Truth:Contraposition, Derive:AllowBackward)
+    
+    //A belief b <f,c> is equal to --b <1-f,c>, which is the negation rule:
+    
+        (A --> B), A, task(negative) |- --(A --> B), (Truth:Negation, Desire:Negation, Derive:AllowBackward)
+        (A --> B), B, task(negative) |- --(A --> B), (Truth:Negation, Desire:Negation, Derive:AllowBackward)
+      --(A --> B), A, task(negative) |-   (A --> B), (Truth:Negation, Desire:Negation, Derive:AllowBackward)
+      --(A --> B), B, task(negative) |-   (A --> B), (Truth:Negation, Desire:Negation, Derive:AllowBackward)
+    
+        (A <-> B), A, task(negative) |- --(A <-> B), (Truth:Negation, Desire:Negation, Derive:AllowBackward)
+        (A <-> B), B, task(negative) |- --(A <-> B), (Truth:Negation, Desire:Negation, Derive:AllowBackward)
+      --(A <-> B), A, task(negative) |-   (A <-> B), (Truth:Negation, Desire:Negation, Derive:AllowBackward)
+      --(A <-> B), B, task(negative) |-   (A <-> B), (Truth:Negation, Desire:Negation, Derive:AllowBackward)
+    
+    //// inheritance-based syllogism ////////////////////////////////////////////////////////////////////////////////////
+    //       (A --> B) ------- (B --> C)
+    //            \               /
+    //             \             /
+    //              \           /
+    //               \         /
+    //                (A --> C)
+    //If A is a special case of B, and B is a special case of C, so is A a special case of C (strong), the other variations are hypotheses (weak)
+    
+        (A --> B), (B --> C), not_equal(A,C) |- (A --> C), (Truth:Deduction, Desire:Strong, Derive:AllowBackward)
+        (A --> B), (A --> C), not_equal(B,C) |- (C --> B), (Truth:Abduction, Desire:Weak, Derive:AllowBackward)
+        (A --> C), (B --> C), not_equal(A,B) |- (B --> A), (Truth:Induction, Desire:Weak, Derive:AllowBackward)
+        (A --> B), (B --> C), not_equal(C,A) |- (C --> A), (Truth:Exemplification, Desire:Weak, Derive:AllowBackward)
+    
+    //// similarity from inheritance ////////////////////////////////////////////////////////////////////////////////////
+    //If S is a special case of P, and P is a special case of S, then S and P are similar
+    
+        (S --> P), (P --> S) |- (S <-> P), (Truth:Intersection, Desire:Strong, Derive:AllowBackward)
+    
+    //// inheritance from similarty <- TODO check why this one was missing ////////////////////////////////////////////////////////////////////////////////////
+    
+        (S <-> P), (P --> S) |- (S --> P), (Truth:ReduceConjunction, Desire:Strong, Derive:AllowBackward)
+    
+    //// similarity-based syllogism ////////////////////////////////////////////////////////////////////////////////////
+    //If P and S are a special case of M, then they might be similar (weak),
+    //also if P and S are a general case of M
+    
+        (P --> M), (S --> M), not_equal(S,P) |- (S <-> P), (Truth:Comparison, Desire:Weak, Derive:AllowBackward)
+        (M --> P), (M --> S), not_equal(S,P) |- (S <-> P), (Truth:Comparison, Desire:Weak, Derive:AllowBackward)
+    
+    //If M is a special case of P and S and M are similar, then S is also a special case of P (strong)
+    
+        (M --> P), (S <-> M), not_equal(S,P) |- (S --> P), (Truth:Analogy, Desire:Strong, Derive:AllowBackward)
+        (P --> M), (S <-> M), not_equal(S,P) |- (P --> S), (Truth:Analogy, Desire:Strong, Derive:AllowBackward)
+        (M <-> P), (S <-> M), not_equal(S,P) |- (S <-> P), (Truth:Resemblance, Desire:Strong, Derive:AllowBackward)
+    

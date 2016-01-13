@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>1d55972c-132c-4ccc-868c-c85b669a8a5b</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>ALANN_GUI</RootNamespace>
+    <AssemblyName>ALANN_ENGINE</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFSharpCoreVersion>4.4.0.0</TargetFSharpCoreVersion>
+    <Name>ALANN_Engine</Name>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <Tailcalls>false</Tailcalls>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <WarningLevel>3</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <DocumentationFile>bin\Debug\ALANN_ENGINE.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <Tailcalls>true</Tailcalls>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <WarningLevel>3</WarningLevel>
+    <PlatformTarget>x64</PlatformTarget>
+    <DocumentationFile>bin\Release\ALANN_GUI.XML</DocumentationFile>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <Tailcalls>false</Tailcalls>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <WarningLevel>3</WarningLevel>
+    <DocumentationFile>bin\Debug\ALANN_ENGINE.XML</DocumentationFile>
+    <Prefer32Bit>false</Prefer32Bit>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <Tailcalls>true</Tailcalls>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <WarningLevel>3</WarningLevel>
+    <DocumentationFile>bin\Release\ALANN_GUI.XML</DocumentationFile>
+    <Prefer32Bit>true</Prefer32Bit>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '11.0'">
+      <PropertyGroup Condition="Exists('$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets')">
+        <FSharpTargetsPath>$(MSBuildExtensionsPath32)\..\Microsoft SDKs\F#\3.0\Framework\v4.0\Microsoft.FSharp.Targets</FSharpTargetsPath>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets')">
+        <FSharpTargetsPath>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\FSharp\Microsoft.FSharp.Targets</FSharpTargetsPath>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+  <Import Project="$(FSharpTargetsPath)" />
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.fs" />
+    <None Include="App.config" />
+    <Compile Include="ALANN.fs" />
+    <Compile Include="Helpers.fs" />
+    <Compile Include="Parameters.fs" />
+    <Compile Include="AsyncUtils.fs" />
+    <Compile Include="Types.fs" />
+    <Compile Include="ConceptStore.fs" />
+    <Compile Include="Providers.fs" />
+    <Compile Include="PriorityQueue.fs" />
+    <Compile Include="TaskStore.fs" />
+    <Compile Include="Messages.fs" />
+    <Compile Include="TypeFormatters.fs" />
+    <Compile Include="Events.fs" />
+    <Compile Include="EventFunctions.fs" />
+    <Compile Include="Metrics.fs" />
+    <Compile Include="Utilities.fs" />
+    <Compile Include="Trail.fs" />
+    <Compile Include="AttentionFunctions.fs" />
+    <Compile Include="Reduce.fs" />
+    <Compile Include="Factory2.fs" />
+    <Compile Include="NALParser.fs" />
+    <Compile Include="ParserUtils.fs" />
+    <Compile Include="TruthFunctions.fs" />
+    <Compile Include="Substitution.fs" />
+    <Compile Include="InferenceRuleHelpers.fs" />
+    <Compile Include="QuestionUpdater.fs" />
+    <Compile Include="LocalInference.fs" />
+    <Compile Include="DerivedTaskBuffer.fs" />
+    <Compile Include="ForwardRules.fs" />
+    <Compile Include="InferenceActors.fs" />
+    <Compile Include="ActiveConceptProcessor.fs" />
+    <Compile Include="ConceptFunctions.fs" />
+    <Compile Include="Concept.fs" />
+    <Compile Include="TaskBuffer.fs" />
+    <Compile Include="PriorityBuffer.fs" />
+    <Compile Include="CommandInjector.fs" />
+    <Compile Include="TaskDispatcherFunctions.fs" />
+    <Compile Include="TaskDispatcher.fs" />
+    <Compile Include="FileParser.fs" />
+    <Compile Include="SentenceParser.fs" />
+    <Compile Include="IController.fs" />
+    <Compile Include="ControllerFunctions.fs" />
+    <Compile Include="Controller.fs" />
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Akka">
+      <HintPath>..\packages\Akka.1.0.5\lib\net45\Akka.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Akka.FSharp">
+      <HintPath>..\packages\Akka.FSharp.1.0.4\lib\net45\Akka.FSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="C5">
+      <HintPath>..\packages\C5.2.3.0.1\lib\net40\C5.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FParsec">
+      <HintPath>..\packages\FParsec.1.0.2\lib\net40-client\FParsec.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FParsecCS">
+      <HintPath>..\packages\FParsec.1.0.2\lib\net40-client\FParsecCS.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharp.Collections.ParallelSeq">
+      <HintPath>..\packages\FSharp.Collections.ParallelSeq.1.0.2\lib\net40\FSharp.Collections.ParallelSeq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharp.PowerPack">
+      <HintPath>..\packages\FSPowerPack.Core.Community.3.0.0.0\lib\Net40\FSharp.PowerPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FSharp.PowerPack.Linq">
+      <HintPath>..\packages\FSPowerPack.Linq.Community.3.0.0.0\lib\Net40\FSharp.PowerPack.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FsPickler">
+      <HintPath>..\packages\FsPickler.1.4.0\lib\net45\FsPickler.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PowerCollections">
+      <HintPath>..\packages\XAct.Wintellect.PowerCollections.0.0.1\lib\net20\PowerCollections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
