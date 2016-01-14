@@ -2,5 +2,5 @@
 
 open Akka.FSharp
 
-let system = System.create "ALANN" (Configuration.defaultConfig()
+let system = System.create "ALANN" (Configuration.defaultConfig())
 
