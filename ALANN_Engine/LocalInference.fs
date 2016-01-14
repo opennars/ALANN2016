@@ -46,8 +46,7 @@ let checkBestAnswer state task belief =
         let task = {task with S = {task.S with BestAnswer = Some {Sentence = belief.S; Stamp = belief.Stamp} } }
         if task.Stamp.Origin = Origin.User then
             questionUpdaterRef <! UpdateQuestions(task)
-        belief.AV <- task.AV
-        belief
+        {belief with AV = task.AV} 
 
     // is best answer so far?
     match task.S.BestAnswer with

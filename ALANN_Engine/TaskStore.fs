@@ -58,7 +58,7 @@ type TaskStore(n : int) =
                 failwith "TaskStore.Update() : task does not exist"
 
             let h = d.[task]
-            q.[h].AV <- task.AV
+            q.[h] <- task
 
         member x.Merge(newTask) =
             

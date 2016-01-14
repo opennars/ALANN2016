@@ -71,6 +71,7 @@ type RuleBuilderForward() =
                     -> makeStructuralBelief (task, belief, term, tv, dv, state.Name)
                 | Backward
                     -> makeTask (task, belief, term, None, None, state.Name)
+                | _ -> failwith "RuleBuilderForward.processResult() failed with unexpected truth type"
 
             if state.Logging then
                 raiseInferenceResultEvent (Some task) (Some belief) [result]

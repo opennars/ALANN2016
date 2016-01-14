@@ -42,7 +42,7 @@ type Stamp          = { ID : int
                         Trail : Trail
                         DerivationTrail : Term list
                         DerivationRule : string
-                        mutable Activations : int }
+                        Activations : int }
 
 type SentenceType   = | Judgement | Question | Quest | Goal
 
@@ -61,7 +61,7 @@ and Answer          = { Sentence : Sentence
 type Router         = Routee list
 
 [<CustomEquality; CustomComparison>]
-type Task           = { mutable AV : single
+type Task           = { AV : single
                         S : Sentence
                         Stamp : Stamp
                         Router : Router
@@ -88,8 +88,7 @@ and ITaskStore =
 type ConceptRef     = { Term : Term; Ref : IActorRef; mutable Activations : int }
 
 type ConceptState = { Name : Term
-                      mutable Task : Task
-                      Tasks: ITaskStore // for GUI
+                      Tasks: ITaskStore
                       Beliefs : ITaskStore
                       mutable Activation : single
                       mutable Priming : single

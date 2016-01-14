@@ -52,7 +52,6 @@ let makeConcept id term =
     let ref =
         spawn system (id.ToString()) 
             (actorOf2 (conceptWorker ({ Name = term
-                                        Task = blankTask 
                                         Tasks = TaskStore(Parameters.TASK_CAPACITY)
                                         Beliefs = TaskStore(Parameters.BELIEF_CAPACITY)
                                         Activation = 0.0f

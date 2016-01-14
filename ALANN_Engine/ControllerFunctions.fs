@@ -71,7 +71,7 @@ let workCycle() =
     if(elapsed < Parameters.MS_PER_CYCLE) then
         Thread.Sleep(Parameters.MS_PER_CYCLE - elapsed)
     else
-        printfn "Exceeded Concept Processing Time: %d" elapsed
+        printfn "Exceeded Concept Processing Time: %dms" elapsed
     sw.Reset()
     publish (UpdateAV) system.EventStream |> ignore
     

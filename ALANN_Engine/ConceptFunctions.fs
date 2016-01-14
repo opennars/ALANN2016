@@ -15,8 +15,7 @@ let decayPrimer state (belief : Task) =
     // Decay activation level by e^-ld
     let now = SystemTime.Now
     let delta = now - state.LastUpdate
-    belief.AV <- belief.AV * Operators.exp(-Parameters.DECAY_RATE*single(delta))
-    belief
+    {belief with AV = belief.AV * Operators.exp(-Parameters.DECAY_RATE*single(delta))} 
 
 let decayBeliefs state =
     if state.Priming <> 0.0f then
@@ -40,7 +39,8 @@ let updateActiveBeliefs belief primer state =
 
     matches 
     |> List.iter(fun belief ->
-            belief.Stamp.Activations <- belief.Stamp.Activations + 1
+//            belief.Stamp.Activations <- belief.Stamp.Activations + 1
+            let belief = {belief with Stamp = {belief.Stamp with Activations = belief.Stamp.Activations + 1}}
             state.Beliefs.Update(belief)
     )
 
